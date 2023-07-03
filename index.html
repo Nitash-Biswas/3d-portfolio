@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Portfolio</title>
+  <link rel="stylesheet" type="text/css" href="style.css" /> <!-- Include the CSS file -->
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body>
+  
+
+  <!-- 3d scene -->
+  <script type="module" src="3d.js"></script> 
+  
+
+  <div class="navbar">
+    <div class="nav-item">
+      <li onclick="scrollToSection('header', 300)">Home</li>
+    </div>
+    <div class="nav-item">
+      <li onclick="scrollToSection('about', 300)">About</li>
+    </div>
+    <div class="nav-item">
+      <li onclick="scrollToSection('projects', 300)">Work</li>
+    </div>
+    <div class="nav-item">
+      <li onclick="scrollToSection('work', 300)">Skills</li>
+    </div>
+    <div class="nav-item">
+      <li onclick="scrollToSection('contact', 300)">Contact</li>
+    </div>
+  </div>
+
+  <nav class="vertical-navbar">
+    <ul>
+      <li><a href="https://www.instagram.com/nitashbiswas/" target="_blank"><i class="fa fa-instagram" style="font-size:50px"></i></a></li>
+      <li><a href="https://www.linkedin.com/in/nitash-biswas/" target="_blank"><i class="fa fa-linkedin-square" style="font-size:50px">  </i></a></li>
+      <li><a href="https://github.com/Nitash-Biswas" target="_blank"><i class="fa fa-github" style="font-size:50px"></i></a></li>
+    </ul>
+  </nav>
+  
+
+  <header id="header">
+    <canvas id="bg"></canvas>
+  
+    <div class="header">
+      <p>Hi, I am</p>
+      <h1 >Nitash Biswas</h1> 
+      <h2>Illustrator. Designer. Developer.</h2>
+  
+      <div class="arrow-down"></div>
+      <div class="swipe-down">
+        <!-- <h6>Swipe down</h6> -->
+        <i class="material-icons" style="font-size: 100px;">expand_more</i>
+      </div>
+    </div>
+  </header>
+  
+
+<section id="about">
+  <h3>👩🏽‍🚀 About Me</h3>
+
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+    <br>
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  </p>
+
+</section>
+
+<section id="projects">
+  <h3>👩🏽‍💻 Works</h3>
+  <h4>Illustrations</h4>
+  <br>
+
+  <div class="project-container">
+    <div class="project">
+      <img src="art/1.png" alt="Project 1" />
+      <div class="overlay">
+        <div class="text">Project 1: Spiderman 2099</div>
+      </div>
+    </div>
+
+    <div class="project">
+      <img src="art/2.png" alt="Project 2" />
+      <div class="overlay">
+        <div class="text">Project 2: Lady at the Window</div>
+      </div>
+    </div>
+
+    <div class="project">
+      <img src="art/3.png" alt="Project 3" />
+      <div class="overlay">
+        <div class="text">Project 3: Lakeside</div>
+      </div>
+    </div>
+
+    <div class="project">
+      <img src="art/4.png" alt="Project 4" />
+      <div class="overlay">
+        <div class="text">Project 4: Autumn Bliss</div>
+      </div>
+    </div>
+
+    <div class="project">
+      <img src="art/5.png" alt="Project 5" />
+      <div class="overlay">
+        <div class="text">Project 5: Evening Stroll</div>
+      </div>
+    </div>
+    <!-- Add more project items as needed -->
+  </div>
+</section>
+
+  
+
+  
+  <section id="work">
+    <blockquote>
+      <p>That sounds so wrong!!</p>
+    </blockquote>
+    <h3>🌮 Work History</h3>
+    
+
+    <h4>Canvas Nsut</h4>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+  </section>
+
+  <section id="contact">
+
+    <blockquote>
+      <p>Thanks for watching!</p>
+    </blockquote>
+    
+    
+    <h3 >✉️ Contact me</h3>
+    <br>
+    
+
+    
+
+    <h2>Send me a message!</h2>
+    
+    <form class="contact-title" id="myform" action="https://formsubmit.co/nitash.nb@gmail.com" method="POST">
+      <div class="formbox">
+          <input type="text" name = "name" 
+          placeholder="Your Name" required>
+          
+      </div>
+      <div class="formbox">
+          <input type="email" name = "email"
+          placeholder="Your Email Id" required>
+      </div>
+      <div class="formbox">
+          <textarea cols="30" rows="10" name="msg"
+          placeholder="Write your message" required></textarea>
+      </div>
+      <div class="form-box">
+          <button class="btn" type="submit" id="submit">Submit</button>
+      </div>
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+
+  </form>
+    
+  </section>
+
+  
+
+  <div id="app"></div>
+
+  <script src="function.js"></script> 
+  
+
+  <footer >
+  <h5>&copy; 2023 Nitash Biswas. All rights reserved.</h5>
+  </footer>
+  
+  
+</body>
+</html>
