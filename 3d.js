@@ -42,7 +42,7 @@ controls.enableRotate = false; // Disable rotation control
 let object;
 const loader = new GLTFLoader();
 loader.load(
-  '3dmodel/donut1.gltf',
+  'donut1.gltf',
   (gltf) => {
     object = gltf.scene;
     let scale = 2.5;
