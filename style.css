@@ -2,13 +2,14 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 /* Define variables for consistent styling */
 :root {
   --dark-bg: #0d0d0e;
   --light-text: #fff;
-  --textcolor: #CDA26B;
+  --textcolor: #d6a668;
   --spacing: 2rem;
 }
 
@@ -38,45 +39,120 @@ main {
   grid-template-columns: repeat(12, 1fr);
   transform: translateY(22px);
 }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
 
-/*First page*/
 header {
-  min-height: 100vh;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 100;
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: stretch;
+  align-items: center;
+  justify-content: space-between;
+  padding: 33px 3%;
 }
 
-.header {
-  font-size: 200%;
-  color: var(--textcolor);
-  padding: 20% 10%;
+.logo {
+  font-size: 35px;
+  font-weight: bold;
+  transition: color 0.3s ease;
 }
 
-#header {
+.logo:hover{
+  color: var(--light-text);
+}
+
+.navlist {
+  display: flex;
+  list-style: none;
+  
+}
+
+.navlist li {
   position: relative;
-  height: 100vh;
+  display: inline-block;
+  padding: 10px;
+  cursor: pointer;
+    
 }
 
-#header::after {
+.navlist li:not(:last-child) {
+  margin-right: 30px; /* Adjust the margin-right value to control the spacing */
+}
+
+.navlist li a {
+  font-size: 20px;
+  padding-bottom: 3px;
+}
+
+.navlist li::after {
   content: '';
   position: absolute;
-  bottom: -1px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  height: 1px;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2.5px;
   background-color: var(--textcolor);
+  transition: width 0.3s ease-in-out;
 }
 
-#bg {
-  position: absolute;
-  top: 0;
-  left: 0;
+.navlist li:hover::after {
   width: 100%;
-  height: 100%;
-  background-size: cover;
 }
+
+
+
+#menu-icon{
+  color: var(--textcolor);
+  font-size: 30px;
+  z-index: 1000;
+  cursor: pointer;
+  display: none;
+}
+
+.hero{
+  height: 100%;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  display:grid;
+  grid-template-columns: repeat(2,1fr);
+  align-items: center;
+  gap: 2rem;
+}
+.hero-img img{
+  width: 500px;
+  height: auto;
+  
+}
+.hero-text{
+  height: 300px;
+}
+.hero-text button{
+  display: inline-block;
+  color: var(--textcolor);
+  background-color: #09090900;
+  border: 3px solid var(--textcolor);
+  padding: 10px 30px;
+  line-height: 1.4;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 30px;
+  margin: 8px 0;
+  transition: all .15s ease;
+
+}
+
+.hero-text button:hover {
+  color: white;
+  background: var(--textcolor);
+}
+
 
 h1 {
   font-family: Arial, Helvetica, sans-serif;
@@ -91,24 +167,75 @@ h6 {
   font-weight: 100;
 }
 
-.swipe-down {
-  display: flex;
-  justify-content: center;
+
+.swipe {
   position: absolute;
-  bottom: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  animation: swipeAnimation 0.5s ease-in-out infinite alternate;
+  bottom: 0;
+  left: 63px;
+  transform: translate(0, -50px);
+  width: 0;
+  height: 150px;
+  border-left: 6px solid rgba(255,255,255,.1);
 }
 
-@keyframes swipeAnimation {
+.dart {
+  position: absolute;
+  left: -6px;
+  width: 6px;
+  height: 40px;
+  background: var(--textcolor);
+  animation: animate 3s linear infinite;
+}
+
+.dart:before {
+  width: 20px;
+  height: 20px;
+  content: "";
+  position: absolute;
+}
+
+@keyframes animate {
   0% {
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
+    opacity: 0.0;
+  }
+  50% {
+    transform: translateY(60px);
+    opacity: 1;
   }
   100% {
-    transform: translateX(-50%) translateY(-15px);
+    transform: translateY(120px);
+    opacity: 0.0;
   }
 }
+
+
+
+/* Verical socials navbar */
+.vertical-navbar {
+  position: absolute;
+  left: -5.5%;
+  top: 50%;
+  padding: 0 9%;
+  transform: translateY(-50%);
+    
+}
+
+.vertical-navbar i{
+  display: block;
+  margin: 26px 0;
+  font-size: 50px;
+  align-items: center;
+  color: var(--textcolor);
+  transition: all .50s ease;
+ 
+}
+.vertical-navbar i:hover{
+  opacity: 0.5;
+}
+
+
+
 
 h3,
 blockquote {
@@ -123,6 +250,9 @@ h4 {
   font-size: 150%;
   line-height: 200%;
 }
+h6{
+  font-size: 24px;
+}
 
 #about {
   bottom: 100px;
@@ -135,6 +265,7 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: stretch;
+  min-height: 100vh;  /* stretch other sections off the screen */
   color: var(--textcolor);
 }
 
@@ -154,6 +285,7 @@ p {
 a {
   color: var(--textcolor);
   word-spacing: 10px;
+  text-decoration: none;
 }
 
 blockquote p {
@@ -167,86 +299,6 @@ blockquote p {
 .left {
   grid-column: 6 / 12;
 }
-
-/*Navigation bar*/
-.navbar {
-  position: fixed;
-  top: 75%;
-  right: 0;
-  transform-origin: top right;
-  transform: rotate(90deg);
-  display: flex;
-  z-index: 10;
-}
-
-.nav-item {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 1rem;
-  padding: 10px 10px; /* Adjust the spacing between items */
-}
-
-/* Hover Underline */
-.navbar li {
-  position: relative;
-  display: inline-block;
-  padding: 10px;
-  cursor: pointer;
-  color: var(--textcolor);
-}
-
-.navbar li::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0;
-  height: 2px;
-  background-color: var(--textcolor);
-  transition: width 0.3s ease-in-out;
-}
-
-.navbar li:hover::after {
-  width: 100%;
-}
-
-
-/* Verical socials navbar */
-.vertical-navbar {
-  position: fixed;
-  bottom: 40%;
-  left: 0;
-  padding: 20px 30px;
-  display: flex;
-  flex-direction: column;
-  z-index: 10;
-  
-}
-
-.vertical-navbar ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  
-}
-
-.vertical-navbar li {
-  margin-bottom: 10px;
-}
-
-.vertical-navbar a {
-  text-decoration: none;
-  font-size: 16px;
-  color: var(--textcolor);
-}
-
-.vertical-navbar a i {
-  transition: opacity 0.3s ease; /* Add transition effect */
-}
-
-.vertical-navbar a:hover i {
-  opacity: 0.2; /* Set the opacity when hovered */
-}
-
 
 /*Art grid*/
 .project-container {
@@ -346,7 +398,7 @@ h5 {
 
 .formbox input,
 textarea {
-  width: 52vw;
+  width: 50%;
   padding: 12px 6px;
   margin: 7px 0;
   font-size: 20px;
@@ -366,7 +418,7 @@ textarea::placeholder {
 }
 
 .btn {
-  width: 52vw;
+  width: 50%;
   padding: 10px 6px;
   margin: 7px 0;
   font-size: 20px;
@@ -382,4 +434,139 @@ textarea::placeholder {
 .btn:hover {
   color: white;
   background: var(--textcolor);
+}
+
+
+
+
+
+/* Mobile Responsive */
+@media(max-width: 1535px){
+  header{
+    padding: 33px 3%;
+    transition: .2s;
+  }
+  .vertical-navbar{
+    padding: 0 9%;
+    transition: .2s;
+  }
+  .swipe-down{
+    right: 0%;
+    transition: .2s;
+  }
+}
+@media(max-width: 990px){
+  .hero{
+    gap: 1rem;
+    grid-template-columns: 1fr; /*brings the image down */
+
+  }
+  .hero-text{
+    padding-top: 90px;
+    font-size: 17px;
+  }
+  .hero-img{
+    text-align: center;
+    
+  }
+  .hero-img img{
+    width: 100%;
+    height: auto;
+    
+  }
+  .hero-text h1{
+    margin: 0 0;
+  }
+  .swipe-down{
+    display: none;
+  }
+  .vertical-navbar{
+    display: none;
+  }
+  #menu-icon{
+    display: block;
+  }
+  
+  .navlist{
+    position: absolute;
+    top: 100%;
+    right: -100%;
+    width: 255px;
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 50px 20px;
+    transition: all .55s ease;
+    z-index: 9999;
+    
+  }
+  #header .navlist a{
+    display: block;
+    margin: 10px 0;
+    margin-left: 0;
+    color: var(--dark-bg);
+    font-size: 25px;
+  }
+  .navlist li:not(:last-child) {
+    margin-right: 0px; /* Adjust the margin-right value to control the spacing */
+  }
+  .navlist li::after {
+    bottom: 15px;
+    background-color: var(--dark-bg);
+  }
+  .navlist.open{
+    right: 0; 
+    font-size: 100%;
+  }
+  .logo{
+    font-size: 150%;
+  }
+  .circle {
+    position: absolute;
+    top: 50%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--textcolor);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.4s ease;
+    filter: none;
+
+  }
+
+  .circle.open {
+    width: 1000px;
+    height: 900px;
+    opacity: 1;
+    transition: all 0.5s ease;
+    z-index: -1;
+  }
+  
+
+  p{
+    grid-template-columns: repeat(1, 1fr);
+  }
+  section{
+    top: -30px;
+  }
+  section:not(:first-child){
+    padding: 80px 13%;
+    transition: .2s;
+  }
+  .formbox input,textarea {
+  width: 100%;
+  }
+  .btn{
+    width: 100%;
+  }
+  .swipe {
+    left: 25px;
+    transform: translate(0, -38px); 
+  }
+  .text{
+    font-size: 10px;
+  }
 }

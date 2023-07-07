@@ -26,7 +26,7 @@ function scrollToSection(sectionId, duration) {
     }
   }
 
-// Handle form submission with AJAX
+// Handle form submission with AJAX to prevent email redirects
 document.getElementById("myform").addEventListener("submit", function(event) {
     event.preventDefault(); // Prevent default form submission
 
@@ -56,4 +56,39 @@ document.getElementById("myform").addEventListener("submit", function(event) {
 
     xhr.send(formData); // Send the form data via AJAX
   });
+
+let menu = document.querySelector('#menu-icon');
+let navlist = document.querySelector('.navlist');
+let circle = document.querySelector('.circle');
+menu.onclick = () => {
   
+  menu.classList.toggle('bx-x');
+  navlist.classList.toggle('open');
+  circle.classList.toggle('open');
+  
+  if (menu.classList.contains('bx-x')) {
+    menu.style.color =  '#0d0d0e'; 
+    menu.style.fontSize = '40px';
+  } else {
+    menu.style.color = ''; 
+  }
+};
+
+const sr = ScrollReveal ({
+  distance: '65px',
+  duration: 2600,
+  delay: 450,
+  reset: true
+});
+
+function revealAnimations() {
+  sr.reveal('.hero-text', { delay: 100, origin: 'top' });
+  sr.reveal('.hero-img', { delay: 450, origin: 'top' });
+  sr.reveal('.vertical-navbar', { distance: '100px', delay: 400, origin: 'left' });
+  sr.reveal('.swipe', { distance: '100px', delay: 400, origin: 'left' });
+}
+
+// Call the revealAnimations function on page load
+window.addEventListener('load', revealAnimations);
+ 
+
