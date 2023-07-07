@@ -519,9 +519,15 @@ textarea::placeholder {
     right: 0; 
     font-size: 100%;
   }
-  .logo{
+  .logo {
     font-size: 150%;
+    color: var(--textcolor);
   }
+  
+  .navlist.open ~ .logo {
+    color: var(--light-text);
+  }
+  
   .circle {
     position: absolute;
     top: 50%;
