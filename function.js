@@ -91,4 +91,3 @@ function revealAnimations() {
 // Call the revealAnimations function on page load
 window.addEventListener('load', revealAnimations);
  
-
