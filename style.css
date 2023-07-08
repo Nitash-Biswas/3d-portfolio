@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family:'Londrina Solid', cursive;
 }
 
 /* Define variables for consistent styling */
@@ -14,7 +15,6 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
   color: var(--light);
   background-color: var(--dark-bg);
 }
@@ -31,7 +31,6 @@ main {
   font-size: 40px;
   color: var(--textcolor);
   z-index: 99;
-  font-family: Arial, Helvetica, sans-serif;
   width: 100%;
   margin: 0 auto;
   padding: 120px 0;
@@ -58,7 +57,8 @@ header {
 }
 
 .logo {
-  font-size: 35px;
+  font-family:'Londrina Solid', cursive;
+  font-size: 45px;
   font-weight: bold;
   transition: color 0.3s ease;
 }
@@ -70,7 +70,7 @@ header {
 .navlist {
   display: flex;
   list-style: none;
-  
+  font-weight: 300; 
 }
 
 .navlist li {
@@ -86,7 +86,7 @@ header {
 }
 
 .navlist li a {
-  font-size: 20px;
+  font-size: 26px;
   padding-bottom: 3px;
 }
 
@@ -141,7 +141,7 @@ header {
   padding: 10px 30px;
   line-height: 1.4;
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 300;
   border-radius: 30px;
   margin: 8px 0;
   transition: all .15s ease;
@@ -155,14 +155,16 @@ header {
 
 
 h1 {
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 700;
+  font-family: 'Londrina Solid', cursive;
+  font-weight: 400;
   font-size: 300%;
   font-style: bold;
   line-height: 0.9;
 }
 
-h2,
+h2{
+  font-weight: 300;
+}
 h6 {
   font-weight: 100;
 }
@@ -209,6 +211,28 @@ h6 {
   }
 }
 
+.music {
+  position: fixed;
+  bottom: 40px;
+  right: 50px;
+  width: 75px; /* Adjust the width and height as needed */
+  height: 75px;
+  background-color: transparent;
+  color: var(--textcolor);
+  border: 3px solid var(--textcolor);
+  border-radius: 50%; /* Make the button circular */
+  font-size: 30px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all .25s ease;
+}
+.music:hover{
+  background-color: var(--textcolor); 
+  color: var(--light);
+}
+
 
 
 /* Verical socials navbar */
@@ -240,15 +264,16 @@ h6 {
 
 h3,
 blockquote {
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 700;
+  font-family: 'Londrina Solid', cursive;
+  font-weight: 400;
   font-size: 200%;
   font-style: normal;
   line-height: 200%;
 }
 
 h4 {
-  font-size: 150%;
+  font-size: 170%;
+  font-weight: 300;
   line-height: 200%;
 }
 h6{
@@ -281,6 +306,7 @@ p {
   text-align: justify;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 a {
@@ -500,6 +526,7 @@ textarea::placeholder {
     padding: 50px 20px;
     transition: all .55s ease;
     z-index: 9999;
+    font-weight: 300;
     
   }
   #header .navlist a{
@@ -521,7 +548,7 @@ textarea::placeholder {
     font-size: 100%;
   }
   .logo {
-    font-size: 150%;
+    font-size: 200%;
     color: var(--textcolor);
   }
   

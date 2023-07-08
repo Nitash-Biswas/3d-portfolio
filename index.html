@@ -12,7 +12,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@100;300;400&family=Roboto:wght@500&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
@@ -72,6 +73,10 @@
     <div class = "swipe">
       <div class="dart"></div>
     </div>
+    
+    <button class="music">
+      <i class="ri-volume-mute-fill"></i>
+    </button>
    
   
 
@@ -186,18 +191,12 @@
   </section>
 
   
-
- 
-
-  
-  
-  
-  
 <footer >
   <h5>&copy; 2023 Nitash Biswas. All rights reserved.</h5>
 </footer>
   
- 
+ <!--/////////Scrolling and Other Functions////////////////////////////////////////////////////////////////////////////////////////////////////////////////  -->
+
 <script>
   // Function to smoothly scroll to a section when clicking on a navigation item
   function scrollToSection(sectionId, duration) {
@@ -256,6 +255,8 @@
       xhr.send(formData); // Send the form data via AJAX
     });
   
+  // Toggle menu and music
+
   let menu = document.querySelector('#menu-icon');
   let navlist = document.querySelector('.navlist');
   let circle = document.querySelector('.circle');
@@ -272,7 +273,24 @@
       menu.style.color = ''; 
     }
   };
+
+  const musicButton = document.querySelector('.music');
+    const icon = musicButton.querySelector('i');
+    const audio = new Audio('art/music.mp3'); // Replace with the actual audio file path
+
+    musicButton.addEventListener('click', () => {
+      icon.classList.toggle('ri-volume-up-line');
+      icon.classList.toggle('ri-volume-mute-fill');
+
+      if (icon.classList.contains('ri-volume-up-line')) {
+        audio.loop = true;
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    });
   
+  // Scrolling intro
   const sr = ScrollReveal ({
     distance: '65px',
     duration: 2600,
