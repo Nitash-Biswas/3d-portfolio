@@ -41,7 +41,7 @@ controls.enableRotate = false; // Disable rotation control
 let object;
 const loader = new GLTFLoader();
 loader.load(
-  'art/donut1.gltf',
+  'art/home.gltf',
   (gltf) => {
     object = gltf.scene;
     let scale = 1;
@@ -61,26 +61,26 @@ loader.load(
   }
 );
 
-let secobject;
-loader.load(
-  'art/home.gltf',
-  (gltf) => {
-    secobject = gltf.scene;
-    let scale = 2.5;
-    secobject.scale.set(scale, scale, scale);
+// let secobject;
+// loader.load(
+//   'art/home.gltf',
+//   (gltf) => {
+//     secobject = gltf.scene;
+//     let scale = 2.5;
+//     secobject.scale.set(scale, scale, scale);
 
     
 
-    scene.add(secobject);
-    secobject.position.set(-10, -2,10);
-  },
-  (xhr) => {
-    console.log(`${(xhr.loaded / xhr.total) * 100}% loaded`);
-  },
-  (error) => {
-    console.error('Error loading GLTF object:', error);
-  }
-);
+//     scene.add(secobject);
+//     secobject.position.set(-10, -2,10);
+//   },
+//   (xhr) => {
+//     console.log(`${(xhr.loaded / xhr.total) * 100}% loaded`);
+//   },
+//   (error) => {
+//     console.error('Error loading GLTF object:', error);
+//   }
+// );
 
 
 // Grid
