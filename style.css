@@ -8,9 +8,11 @@
 
 /* Define variables for consistent styling */
 :root {
-  --dark-bg: #0d0d0e;
+  --dark-bg: #ff8181;
+  /* --dark-bg: #0d0d0e; */
   --light: #fff;
-  --textcolor: #d6a668;
+  --textcolor: #802020;
+  /* --textcolor: #d6a668; */
   --spacing: 2rem;
 }
 
@@ -131,6 +133,7 @@ header {
   
 }
 .hero-text{
+  font-size: 36px;
   height: 300px;
 }
 .hero-text button{
@@ -316,7 +319,7 @@ a {
 }
 
 blockquote p {
-  color: black;
+  color: var(--dark-bg);
   background-color: var(--textcolor);
   font-size: 2.5rem;
   display: inline;
@@ -396,8 +399,8 @@ footer::before {
   content: '';
   position: absolute;
   top: -20%;
-  left: 4%;
-  width: 92%;
+  left: 10%;
+  width: 80%;
   height: 2px; /* Adjust the height as desired */
   background-color: var(--textcolor); /* Change the color as desired */
 }
@@ -490,7 +493,7 @@ textarea::placeholder {
   }
   .hero-text{
     padding-top: 90px;
-    font-size: 17px;
+    font-size: 120%;
   }
   .hero-img{
     text-align: center;
@@ -578,6 +581,15 @@ textarea::placeholder {
     transition: all 0.5s ease;
     z-index: -1;
   }
+
+  .music {
+    
+    bottom: 40px;
+    right: 15px;
+    width: 46px; /* Adjust the width and height as needed */
+    height: 46px;
+    font-size: 20px;
+  }
   
 
   p{
@@ -602,5 +614,9 @@ textarea::placeholder {
   }
   .text{
     font-size: 10px;
+  }
+
+  footer::before {
+    width: 75%;
   }
 }

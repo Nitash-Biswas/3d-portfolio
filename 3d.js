@@ -24,17 +24,12 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 
 
 // Lighting
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.2);
+const directionalLight = new THREE.DirectionalLight(0x320D07, 100);
 directionalLight.position.set(1, 1, 1); // Set the position of the light source
 
-const ambientlight = new THREE.AmbientLight(0xffffff,1);
+const ambientlight = new THREE.AmbientLight(0x071432,10);
 scene.add(ambientlight,directionalLight);
 
-// Create a PointLightHelper and pass the PointLight as an argument
-const lightHelper = new THREE.PointLightHelper(ambientlight, 1);
-
-// Add the lightHelper to the scene
-scene.add(lightHelper);
 
 // Orbit controls
 const controls = new OrbitControls(camera, renderer.domElement);
