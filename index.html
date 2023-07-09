@@ -14,6 +14,7 @@
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@100;300;400&family=Roboto:wght@500&display=swap" rel="stylesheet">
 
+  
 </head>
 
 <body>
@@ -21,6 +22,11 @@
 
     <!-- 3d scene -->
     <script type="module" src="./3d.js"></script>
+
+    
+    
+    
+    
 
   <!-- scrollreveal effect -->
   <script src="https://unpkg.com/scrollreveal"></script>
@@ -55,28 +61,29 @@
     
   </div>
 
-    <section class="hero">
+  <section class="hero">
       <div class="hero-text">
-        <h6>Hi, I am</h6>
+        <h7>Hi, I am</h7>
         <h1>Nitash Biswas</h1>
         <h2>Developer.Illustrator.Designer.</h2>
-        <button type="submit" id="submit">Download CV</button>
+        <button type="submit" id="cv">Download CV</button>
       </div>
 
       <div class="hero-img">
         <!-- <img src="1.png"> -->
       </div>
-    </section>
+  </section>
 
     
-
-    <div class = "swipe">
-      <div class="dart"></div>
-    </div>
+      
+  <div class="swipe">
+    <h8>Scroll down</h8>
+    <div class="dart"></div>
+  </div>
     
-    <button class="music">
-      <i class="ri-volume-mute-fill"></i>
-    </button>
+  <button class="music">
+    <i class="ri-volume-mute-fill"></i>
+  </button>
    
   
 
@@ -92,53 +99,57 @@
 </section>
 
 <section id="projects">
-  <h3>👩🏽‍💻 Works</h3>
-  <h4>Illustrations</h4>
-  <br>
-
-  <div class="project-container">
-    <div class="project">
-      <img src="art/1.png" alt="Project 1" />
-      <div class="overlay">
-        <div class="text">1.Spiderman 2099</div>
-      </div>
+  <div class="projects-wrapper">
+    <div class="projects-heading">
+      <h3>👩🏽‍💻 Works</h3>
+      <h4>Illustrations</h4>
     </div>
 
-    <div class="project">
-      <img src="art/2.png" alt="Project 2" />
-      <div class="overlay">
-        <div class="text">2.Lady at the Window</div>
+    <div class="projects-container" >
+      <div class="project">
+        <img src="art/1.png" alt="Project 1" />
+        <div class="overlay">
+          <div class="text">1.Spiderman 2099</div>
+        </div>
       </div>
-    </div>
 
-    <div class="project">
-      <img src="art/3.png" alt="Project 3" />
-      <div class="overlay">
-        <div class="text">3.Lakeside</div>
+      <div class="project">
+        <img src="art/2.png" alt="Project 2" />
+        <div class="overlay">
+          <div class="text">2.Lady at the Window</div>
+        </div>
       </div>
-    </div>
 
-    <div class="project">
-      <img src="art/4.png" alt="Project 4" />
-      <div class="overlay">
-        <div class="text">4.Autumn Bliss</div>
+      <div class="project">
+        <img src="art/3.png" alt="Project 3" />
+        <div class="overlay">
+          <div class="text">3.Lakeside</div>
+        </div>
       </div>
-    </div>
 
-    <div class="project">
-      <img src="art/5.png" alt="Project 5" />
-      <div class="overlay">
-        <div class="text">5.Evening Stroll</div>
+      <div class="project">
+        <img src="art/4.png" alt="Project 4" />
+        <div class="overlay">
+          <div class="text">4.Autumn Bliss</div>
+        </div>
       </div>
+
+      <div class="project">
+        <img src="art/5.png" alt="Project 5" />
+        <div class="overlay">
+          <div class="text">5.Evening Stroll</div>
+        </div>
+      </div>
+      <!-- Add more project items as needed -->
     </div>
-    <!-- Add more project items as needed -->
   </div>
 </section>
 
+
   
 
   
-  <section id="skills">
+<section id="skills">
     <blockquote>
       <p>That sounds so wrong!!</p>
     </blockquote>
@@ -149,46 +160,50 @@
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
-  </section>
+</section>
 
-  <section id="contact">
+<section id="contact">
 
-    <blockquote>
-      <p>Thanks for watching!</p>
-    </blockquote>
+  <blockquote>
+    <p>Thanks for watching!</p>
+  </blockquote>
     
     
-    <h3 >✉️ Contact</h3>
-    <br>
-    
-
+  <h3 >✉️ Contact</h3>
+  <br>
     
 
-    <h2>Send me a message!</h2>
     
-    <form class="contact-title" id="myform" action="https://formsubmit.co/nitash.nb@gmail.com" method="POST">
-      <div class="formbox">
-          <input type="text" name = "name" 
-          placeholder="Your Name" required>
+
+  <h2>Send me a message!</h2>
+    
+  <form class="contact-title" id="myform" action="https://formsubmit.co/nitash.nb@gmail.com" method="POST">
+    <div class="formbox">
+        <input type="text" name = "name" 
+        placeholder="Your Name" required>
           
-      </div>
-      <div class="formbox">
+    </div>
+
+    <div class="formbox">
           <input type="email" name = "email"
           placeholder="Your Email Id" required>
-      </div>
-      <div class="formbox">
+    </div>
+
+    <div class="formbox">
           <textarea cols="30" rows="5" name="msg"
           placeholder="Write your message" required></textarea>
-      </div>
-      <div class="form-box">
+    </div>
+
+    <div class="form-box">
           <button class="btn" type="submit" id="submit">Submit</button>
-      </div>
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="table">
+    </div>
+    <!-- Form result in table form -->
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
 
   </form>
     
-  </section>
+</section>
 
   
 <footer >
@@ -267,7 +282,7 @@
     circle.classList.toggle('open');
     
     if (menu.classList.contains('bx-x')) {
-      menu.style.color =  '#0d0d0e'; 
+      menu.style.color =  '#ff8181'; 
       menu.style.fontSize = '40px';
     } else {
       menu.style.color = ''; 
@@ -307,9 +322,22 @@
   
   // Call the revealAnimations function on page load
   window.addEventListener('load', revealAnimations);
+
+
+
    </script> 
+   
+   <script type="module">
+    import { scrollToSection, handleFormSubmission } from './function.js';
+    window.scrollToSection = scrollToSection;
+    window.handleFormSubmission = handleFormSubmission;
   
+
+  </script>
+   
 </body>
+
+
 
 
 </html>

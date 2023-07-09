@@ -58,11 +58,15 @@ header {
   padding: 33px 3%;
 }
 
+
 .logo {
   font-family:'Londrina Solid', cursive;
   font-size: 45px;
   font-weight: bold;
   transition: color 0.3s ease;
+  background-color: var(--dark-bg);
+  border-radius: 50%;
+  padding: 13px;
 }
 
 .logo:hover{
@@ -168,26 +172,34 @@ h1 {
 h2{
   font-weight: 300;
 }
-h6 {
-  font-weight: 100;
+h7 {
+  font-weight: 300;
 }
 
+h8{
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--textcolor);
+  position: absolute;
+  bottom: 30px;
+  left: 10px;
+}
 
 .swipe {
   position: absolute;
-  bottom: 0;
-  left: 63px;
+  bottom: -10px;
+  left: 64px;
   transform: translate(0, -50px);
   width: 0;
-  height: 150px;
-  border-left: 6px solid rgba(255,255,255,.1);
+  height: 100px;
+  border-left: 5px solid rgba(255,255,255,.1);
 }
 
 .dart {
   position: absolute;
   left: -6px;
   width: 6px;
-  height: 40px;
+  height: 30px;
   background: var(--textcolor);
   animation: animate 3s linear infinite;
 }
@@ -202,15 +214,15 @@ h6 {
 @keyframes animate {
   0% {
     transform: translateY(0);
-    opacity: 0.0;
+    opacity: 0;
   }
-  50% {
-    transform: translateY(60px);
+  60% {
+    transform: translateY(35px);
     opacity: 1;
   }
   100% {
-    transform: translateY(120px);
-    opacity: 0.0;
+    transform: translateY(70px);
+    opacity: 0;
   }
 }
 
@@ -245,7 +257,7 @@ h6 {
   top: 50%;
   padding: 0 9%;
   transform: translateY(-50%);
-  z-index: 1000;
+  z-index: 1;
     
 }
 
@@ -279,6 +291,8 @@ h4 {
   font-weight: 300;
   line-height: 200%;
 }
+
+
 h6{
   font-size: 24px;
 }
@@ -331,16 +345,45 @@ blockquote p {
 }
 
 /*Art grid*/
-.project-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1vw;
+#projects {
+  overflow-x: hidden; /* Enable horizontal scrolling */
+  position: relative;
+}
+.projects-wrapper {
+  display: flex; /* Create a flex container */
+  flex-wrap: nowrap; /* Prevent projects from wrapping to new lines */
+  
+  flex-direction: column; 
+  scrollbar-width: none;
+}
+
+.projects-wrapper::-webkit-scrollbar {
+  display: none; /* Hide the default scrollbar in WebKit browsers */
+}
+
+.projects-heading {
+  position: sticky; /* Make the heading elements sticky */
+  top: 0; /* Stick them to the top of the #projects section */
+  padding: 10px;
+  z-index: 1; 
+}
+
+.projects-container {
+  display: flex; /* Create a flex container */
+  flex-wrap: nowrap; 
+  overflow-x: auto;
+  padding-bottom: 20px;
+  scroll-behavior: smooth;
 }
 
 .project {
+  display: inline-block; /* Display projects side by side */
+  margin-right: 20px; /* Add spacing between projects */
   position: relative;
   overflow: hidden;
+  flex-shrink: 0; /* Prevent shrinking of images */ 
 }
+
 
 .project img {
   width: 100%;
@@ -349,17 +392,14 @@ blockquote p {
   transition: filter 0.3s ease;
 }
 
-.project:hover img {
-  filter: brightness(70%);
-}
 
 .overlay {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+  height: 20%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.804), transparent);
   padding: 10px;
   box-sizing: border-box;
   transition: opacity 0.3s ease;
@@ -375,8 +415,8 @@ blockquote p {
 }
 
 .text {
-  color: var(--textcolor);
-  font-size: 18px;
+  color: var(--dark-bg);
+  font-size: 28px;
   line-height: 1.2;
   max-width: 100%;
   white-space: nowrap;
@@ -556,7 +596,7 @@ textarea::placeholder {
   }
   
   .navlist.open ~ .logo {
-    color: var(--light);
+    color: var(--textcolor);
   }
   
   .circle {
@@ -584,7 +624,7 @@ textarea::placeholder {
 
   .music {
     
-    bottom: 40px;
+    bottom: 30px;
     right: 15px;
     width: 46px; /* Adjust the width and height as needed */
     height: 46px;

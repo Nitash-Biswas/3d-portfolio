@@ -27,7 +27,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 const directionalLight = new THREE.DirectionalLight(0x320D07, 100);
 directionalLight.position.set(1, 1, 1); // Set the position of the light source
 
-const ambientlight = new THREE.AmbientLight(0x071432,10);
+const ambientlight = new THREE.AmbientLight(0x071432,0);
 scene.add(ambientlight,directionalLight);
 
 
