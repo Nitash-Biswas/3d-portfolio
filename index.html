@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@100;300;400&family=Roboto:wght@500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/gh/kripken/ammo.js@HEAD/builds/ammo.wasm.js"></script>
 
   
 </head>
@@ -21,7 +22,7 @@
   
 
     <!-- 3d scene -->
-    <script type="module" src="./3d.js"></script>
+    <script type="module" src="./move.js"></script>
 
     
     
@@ -61,7 +62,7 @@
     
   </div>
 
-  <section class="hero">
+  <section class="hero" id="hero">
       <div class="hero-text">
         <h7>Hi, I am</h7>
         <h1>Nitash Biswas</h1>
@@ -282,7 +283,7 @@
     circle.classList.toggle('open');
     
     if (menu.classList.contains('bx-x')) {
-      menu.style.color =  '#ff8181'; 
+      menu.style.color =  '#ffffff'; 
       menu.style.fontSize = '40px';
     } else {
       menu.style.color = ''; 
@@ -324,6 +325,22 @@
   window.addEventListener('load', revealAnimations);
 
 
+  function blurBG() {
+  var section = document.getElementById('hero'); 
+  var canvas = document.getElementById('bg');
+  var rect = section.getBoundingClientRect();
+  var isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
+
+  if (!isVisible) {
+    canvas.style.filter = 'blur(20px)';
+    canvas.style.backgroundColor = 'red';
+  } else {
+    // Section is not in view, remove blur effect
+    canvas.style.filter = 'none';
+    }
+  }
+  // Attach the scroll event listener
+window.addEventListener('scroll', blurBG);
 
    </script> 
    

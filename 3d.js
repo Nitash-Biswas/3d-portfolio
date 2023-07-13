@@ -4,6 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 
+
 // Scene, camera, renderer
 const scene = new THREE.Scene();
 const camera = new THREE.OrthographicCamera(window.innerWidth / -50, window.innerWidth / 50, window.innerHeight / 50, window.innerHeight / -50, 0.1, 1000);
@@ -167,8 +168,6 @@ function moveobject() {
     camera.position.copy(cameraVelocity);
   }
 }
-
-
 
 
   

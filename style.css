@@ -10,23 +10,31 @@
 :root {
   --dark-bg: #ff8181;
   /* --dark-bg: #0d0d0e; */
-  --light: #fff;
-  --textcolor: #802020;
+  --light: #e7e7e7;
+  --textcolor: #2b1b1b;
   /* --textcolor: #d6a668; */
   --spacing: 2rem;
 }
 
 body {
   color: var(--light);
-  background-color: var(--dark-bg);
+  background-color: var(--textcolor);
 }
 
 canvas {
+
   position: fixed;
   top: 0;
   left: 0;
   z-index: -1;
+  background-color: #ff8181;
 }
+
+#bg{
+  transition: all 0.3s linear;
+}
+
+
 
 main {
   position: relative;
@@ -64,8 +72,6 @@ header {
   font-size: 45px;
   font-weight: bold;
   transition: color 0.3s ease;
-  background-color: var(--dark-bg);
-  border-radius: 50%;
   padding: 13px;
 }
 
@@ -76,7 +82,7 @@ header {
 .navlist {
   display: flex;
   list-style: none;
-  font-weight: 300; 
+  font-weight: 300;
 }
 
 .navlist li {
@@ -84,6 +90,7 @@ header {
   display: inline-block;
   padding: 10px;
   cursor: pointer;
+  
     
 }
 
@@ -129,16 +136,17 @@ header {
   display:grid;
   grid-template-columns: repeat(2,1fr);
   align-items: center;
-  gap: 2rem;
+  
+}
+.hero-img{
+  margin: 3px; 
 }
 .hero-img img{
-  width: 500px;
-  height: auto;
+  width: 100%;
   
 }
 .hero-text{
-  font-size: 36px;
-  height: 300px;
+  font-size: 32px;
 }
 .hero-text button{
   display: inline-block;
@@ -242,6 +250,7 @@ h8{
   justify-content: center;
   align-items: center;
   transition: all .25s ease;
+  z-index: 2;
 }
 .music:hover{
   background-color: var(--textcolor); 
@@ -253,9 +262,8 @@ h8{
 /* Verical socials navbar */
 .vertical-navbar {
   position: absolute;
-  left: -5.5%;
+  left: -5%;
   top: 50%;
-  padding: 0 9%;
   transform: translateY(-50%);
   z-index: 1;
     
@@ -352,9 +360,10 @@ blockquote p {
 .projects-wrapper {
   display: flex; /* Create a flex container */
   flex-wrap: nowrap; /* Prevent projects from wrapping to new lines */
-  
+  margin-top: 50px; /* Add margin to create space for the sticky heading */
   flex-direction: column; 
   scrollbar-width: none;
+  
 }
 
 .projects-wrapper::-webkit-scrollbar {
@@ -382,6 +391,7 @@ blockquote p {
   position: relative;
   overflow: hidden;
   flex-shrink: 0; /* Prevent shrinking of images */ 
+  max-width: 100%;
 }
 
 
@@ -527,25 +537,23 @@ textarea::placeholder {
 }
 @media(max-width: 990px){
   .hero{
-    gap: 1rem;
     grid-template-columns: 1fr; /*brings the image down */
 
   }
   .hero-text{
-    padding-top: 90px;
-    font-size: 120%;
+    box-sizing: border-box;   
+    max-height: 20%;
+    font-size: 100%;
+    max-width: 100%; 
   }
   .hero-img{
-    text-align: center;
-    
+    box-sizing: border-box;   
   }
   .hero-img img{
-    width: 100%;
-    height: auto;
-    
+    width: 100%;   
   }
   .hero-text h1{
-    margin: 0 0;
+    font-size: 250%
   }
   .swipe-down{
     display: none;
@@ -568,7 +576,7 @@ textarea::placeholder {
     flex-direction: column;
     padding: 50px 20px;
     transition: all .55s ease;
-    z-index: 9999;
+    z-index: 2000;
     font-weight: 300;
     
   }
@@ -576,7 +584,7 @@ textarea::placeholder {
     display: block;
     margin: 10px 0;
     margin-left: 0;
-    color: var(--dark-bg);
+    color: var(--light); /* color of Navlist items */
     font-size: 25px;
   }
   .navlist li:not(:last-child) {
@@ -584,20 +592,17 @@ textarea::placeholder {
   }
   .navlist li::after {
     bottom: 15px;
-    background-color: var(--dark-bg);
   }
   .navlist.open{
     right: 0; 
     font-size: 100%;
   }
   .logo {
+    padding: 0px;
     font-size: 200%;
     color: var(--textcolor);
   }
   
-  .navlist.open ~ .logo {
-    color: var(--textcolor);
-  }
   
   .circle {
     position: absolute;
@@ -619,16 +624,16 @@ textarea::placeholder {
     height: 900px;
     opacity: 1;
     transition: all 0.5s ease;
-    z-index: -1;
+    z-index: -1000;
   }
 
   .music {
-    
     bottom: 30px;
     right: 15px;
     width: 46px; /* Adjust the width and height as needed */
     height: 46px;
     font-size: 20px;
+
   }
   
 
@@ -636,10 +641,11 @@ textarea::placeholder {
     grid-template-columns: repeat(1, 1fr);
   }
   section{
+
     top: -30px;
+    padding: 70px
   }
   section:not(:first-child){
-    padding: 80px 13%;
     transition: .2s;
   }
   .formbox input,textarea {
@@ -649,8 +655,7 @@ textarea::placeholder {
     width: 100%;
   }
   .swipe {
-    left: 25px;
-    transform: translate(0, -38px); 
+    display: none;
   }
   .text{
     font-size: 10px;

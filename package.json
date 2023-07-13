@@ -13,6 +13,9 @@
   },
   "dependencies": {
     "cannon": "^0.6.2",
-    "three": "^0.153.0"
+    "cannon-es": "^0.20.0",
+    "cannon-es-debugger": "^1.0.0",
+    "three": "^0.153.0",
+    "yuka": "^0.7.8"
   }
 }
