@@ -27,11 +27,11 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 // Lighting
-const directionalLight = new THREE.DirectionalLight(0x320D07, 100);
+const directionalLight = new THREE.DirectionalLight(0x320D07, 150);
 directionalLight.position.set(200, 1, 1); // Set the position of the light source
+const ambientlight = new THREE.AmbientLight(0xffffff,0.5);
+scene.add(directionalLight, ambientlight);
 
-const ambientlight = new THREE.AmbientLight(0xffffff,0.4);
-scene.add(ambientlight,directionalLight);
 
 
 //Iso-Camera
@@ -52,16 +52,15 @@ const renderScene = new RenderPass(scene,camera);
 const composer = new EffectComposer(renderer);
 composer.addPass(renderScene);
 
-composer.addPass(new ShaderPass(FilmShader));
+// composer.addPass(new ShaderPass(FilmShader));
 
 const bloomPass = new UnrealBloomPass(
   new THREE.Vector2(window.innerWidth,window.innerHeight), //Resolution
-  0.2, //Intensity
-  0.3, //Radius
+  0.15, //Intensity
+  0.5, //Radius
   0.1 //Threshold
 );
 composer.addPass(bloomPass);
-
 
 
 
@@ -105,7 +104,7 @@ loader.load(
 
 let secobject;
 loader.load(
-  'art/WebRoom1.gltf',
+  'art/WebRoom2.gltf',
   (gltf) => {
     secobject = gltf.scene;
     let scale = 1.5;
@@ -166,7 +165,7 @@ groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), Math.PI / 2);
 
 // Blue Box Body
 const boxPhysMat = new CANNON.Material();
-const startPosition = new CANNON.Vec3(-26, 0.1, -24);
+const startPosition = new CANNON.Vec3(-2, 0.1, -2);
 const boxBody = new CANNON.Body({
   mass: 5,
   shape: new CANNON.Box(new CANNON.Vec3(1, 1, 1)),
@@ -409,7 +408,9 @@ const cannonDebugger = new CannonDebugger(scene, world);
 
 
 
-
+// Create a colored overlay
+var overlay = document.getElementById('scene');
+overlay.style.backgroundColor = 'rgba(84, 0, 31, 0.4)'; // Set the desired color and opacity
 
 function animate() {
   requestAnimationFrame(animate);

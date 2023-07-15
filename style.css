@@ -11,14 +11,14 @@
   --dark-bg: #ff8181;
   /* --dark-bg: #0d0d0e; */
   --light: #e7e7e7;
-  --textcolor: #2b1b1b;
+  --textcolor: #dadada;
   /* --textcolor: #d6a668; */
   --spacing: 2rem;
 }
 
 body {
   color: var(--light);
-  background-color: var(--textcolor);
+  background-color: rgb(35, 35, 35);
 }
 
 canvas {
@@ -28,6 +28,15 @@ canvas {
   left: 0;
   z-index: -1;
   background-color: #ff8181;
+}
+#scene{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
 }
 
 #bg{
@@ -250,7 +259,7 @@ h8{
   justify-content: center;
   align-items: center;
   transition: all .25s ease;
-  z-index: 2;
+  z-index: 3;
 }
 .music:hover{
   background-color: var(--textcolor); 
@@ -283,7 +292,9 @@ h8{
 }
 
 
-
+h1,h2,h3,h4,p,blockquote,.contact-title{
+  z-index: 10;
+}
 
 h3,
 blockquote {
@@ -318,6 +329,7 @@ section {
   justify-content: stretch;
   min-height: 100vh;  /* stretch other sections off the screen */
   color: var(--textcolor);
+  z-index: 1;
 }
 
 blockquote {
