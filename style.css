@@ -8,17 +8,26 @@
 
 /* Define variables for consistent styling */
 :root {
-  --dark-bg: #ff8181;
-  /* --dark-bg: #0d0d0e; */
-  --light: #e7e7e7;
-  --textcolor: #dadada;
-  /* --textcolor: #d6a668; */
+  --color1: #a1a1a1;
+  /* --color1: #0d0d0e; */
+  --light: #a1a1a1;
+  --color2: #f0f0f0;
+  /* --color2: #d6a668; */
   --spacing: 2rem;
+}
+
+#cv:hover,#submit:hover{
+  color: var(--light);
 }
 
 body {
   color: var(--light);
   background-color: rgb(35, 35, 35);
+}
+
+li{
+  color: var(--color2);
+  list-style: none;
 }
 
 canvas {
@@ -27,7 +36,6 @@ canvas {
   top: 0;
   left: 0;
   z-index: -1;
-  background-color: #ff8181;
 }
 #scene{
   position: fixed;
@@ -43,12 +51,75 @@ canvas {
   transition: all 0.3s linear;
 }
 
+#joystick{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 0;
+  width: 300px;
+  height: 300px;
+  z-index: 1000;
+}
+.loader{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color:#161616;
+  transition: opacity 0.75s,visibility 0.75s;
+  
+}
+
+.loader::after{
+  content: "";
+  width: 75px;
+  height: 75px;
+  border: 15px solid #ddd;
+  border-top-color: #ff8181;
+  border-width: 10px;
+  border-radius: 50%;
+  animation: loading 0.75s ease infinite;
+}
+
+@keyframes loading{
+  from{transform: rotate(0turn)}
+  to{transform: rotate(1turn)}
+}
+
+.loader--hidden{
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-content{
+  position: absolute;
+  bottom: 80px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.loader-content img{
+  width: 500px;
+  padding: 20px 0px;
+}
+.loader-content h2{
+  font-size: 35px;
+}
+
 
 
 main {
   position: relative;
   font-size: 40px;
-  color: var(--textcolor);
+  color: var(--color2);
   z-index: 99;
   width: 100%;
   margin: 0 auto;
@@ -119,7 +190,7 @@ header {
   left: 0;
   width: 0;
   height: 2.5px;
-  background-color: var(--textcolor);
+  background-color: var(--color2);
   transition: width 0.3s ease-in-out;
 }
 
@@ -130,7 +201,7 @@ header {
 
 
 #menu-icon{
-  color: var(--textcolor);
+  color: var(--color2);
   font-size: 30px;
   z-index: 1000;
   cursor: pointer;
@@ -155,13 +226,14 @@ header {
   
 }
 .hero-text{
+  visibility: hidden;
   font-size: 32px;
 }
 .hero-text button{
   display: inline-block;
-  color: var(--textcolor);
+  color: var(--color2);
   background-color: #09090900;
-  border: 3px solid var(--textcolor);
+  border: 3px solid var(--color2);
   padding: 10px 30px;
   line-height: 1.4;
   font-size: 20px;
@@ -174,7 +246,7 @@ header {
 
 .hero-text button:hover {
   color: white;
-  background: var(--textcolor);
+  background: var(--color2);
 }
 
 
@@ -196,7 +268,7 @@ h7 {
 h8{
   font-size: 20px;
   font-weight: 300;
-  color: var(--textcolor);
+  color: var(--color2);
   position: absolute;
   bottom: 30px;
   left: 10px;
@@ -210,6 +282,7 @@ h8{
   width: 0;
   height: 100px;
   border-left: 5px solid rgba(255,255,255,.1);
+  z-index: 3;
 }
 
 .dart {
@@ -217,7 +290,7 @@ h8{
   left: -6px;
   width: 6px;
   height: 30px;
-  background: var(--textcolor);
+  background: var(--color2);
   animation: animate 3s linear infinite;
 }
 
@@ -250,8 +323,8 @@ h8{
   width: 75px; /* Adjust the width and height as needed */
   height: 75px;
   background-color: transparent;
-  color: var(--textcolor);
-  border: 3px solid var(--textcolor);
+  color: var(--color2);
+  border: 3px solid var(--color2);
   border-radius: 50%; /* Make the button circular */
   font-size: 30px;
   cursor: pointer;
@@ -262,7 +335,7 @@ h8{
   z-index: 3;
 }
 .music:hover{
-  background-color: var(--textcolor); 
+  background-color: var(--color2); 
   color: var(--light);
 }
 
@@ -275,6 +348,7 @@ h8{
   top: 50%;
   transform: translateY(-50%);
   z-index: 1;
+  visibility: hidden;
     
 }
 
@@ -283,7 +357,7 @@ h8{
   margin: 26px 0;
   font-size: 50px;
   align-items: center;
-  color: var(--textcolor);
+  color: var(--color2);
   transition: all .50s ease;
  
 }
@@ -328,7 +402,7 @@ section {
   flex-direction: column;
   justify-content: stretch;
   min-height: 100vh;  /* stretch other sections off the screen */
-  color: var(--textcolor);
+  color: var(--color2);
   z-index: 1;
 }
 
@@ -347,14 +421,14 @@ p {
 }
 
 a {
-  color: var(--textcolor);
+  color: var(--color2);
   word-spacing: 10px;
   text-decoration: none;
 }
 
 blockquote p {
-  color: var(--dark-bg);
-  background-color: var(--textcolor);
+  color: var(--color1);
+  background-color: var(--color2);
   font-size: 2.5rem;
   display: inline;
   line-height: 1;
@@ -437,7 +511,7 @@ blockquote p {
 }
 
 .text {
-  color: var(--dark-bg);
+  color: var(--color1);
   font-size: 28px;
   line-height: 1.2;
   max-width: 100%;
@@ -453,7 +527,7 @@ footer {
   position: relative;
   padding: 20px;
   text-align: center;
-  color: var(--textcolor);
+  color: var(--color2);
   font-size: 0.9rem;
 }
 
@@ -464,7 +538,7 @@ footer::before {
   left: 10%;
   width: 80%;
   height: 2px; /* Adjust the height as desired */
-  background-color: var(--textcolor); /* Change the color as desired */
+  background-color: var(--color2); /* Change the color as desired */
 }
 
 h5 {
@@ -495,18 +569,18 @@ textarea {
   margin: 7px 0;
   font-size: 20px;
   font-family: var(--Roboto);
-  color: var(--textcolor);
+  color: var(--color2);
   background-color: #09090900;
-  border: 3px solid var(--textcolor);
+  border: 3px solid var(--color2);
   border-radius: 5px;
 }
 
 input::placeholder {
-  color: var(--textcolor);
+  color: var(--color2);
 }
 
 textarea::placeholder {
-  color: var(--textcolor);
+  color: var(--color2);
 }
 
 .btn {
@@ -515,9 +589,9 @@ textarea::placeholder {
   margin: 7px 0;
   font-size: 20px;
   font-family: var(--Roboto);
-  color: var(--textcolor);
+  color: var(--color2);
   background-color: #09090900;
-  border: 3px solid var(--textcolor);
+  border: 3px solid var(--color2);
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.1s ease-in-out;
@@ -525,7 +599,7 @@ textarea::placeholder {
 
 .btn:hover {
   color: white;
-  background: var(--textcolor);
+  background: var(--color2);
 }
 
 
@@ -548,15 +622,32 @@ textarea::placeholder {
   }
 }
 @media(max-width: 990px){
+  
+  .loader-content img{
+    width: 350px;
+    padding: 10px 0px;
+  }
+  .loader-content h2{
+    font-size: 25px;
+  }
+
+  #joystick{
+    bottom: 0;
+    left: 0%;
+    width: 250px;
+    height: 250px;
+  }
+  
+  
   .hero{
     grid-template-columns: 1fr; /*brings the image down */
 
   }
   .hero-text{
-    box-sizing: border-box;   
-    max-height: 20%;
+    position: absolute;
+    left: 12%;
+    top: 20%;
     font-size: 100%;
-    max-width: 100%; 
   }
   .hero-img{
     box-sizing: border-box;   
@@ -566,6 +657,9 @@ textarea::placeholder {
   }
   .hero-text h1{
     font-size: 250%
+  }
+  .hero-text h2{
+    font-size: 120%
   }
   .swipe-down{
     display: none;
@@ -612,7 +706,7 @@ textarea::placeholder {
   .logo {
     padding: 0px;
     font-size: 200%;
-    color: var(--textcolor);
+    color: var(--color2);
   }
   
   
@@ -622,7 +716,7 @@ textarea::placeholder {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: var(--textcolor);
+    background-color: var(--color2);
     transform: translate(-50%, -50%);
     opacity: 0;
     pointer-events: none;

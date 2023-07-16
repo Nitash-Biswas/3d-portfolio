@@ -4,6 +4,15 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import CannonDebugger from 'cannon-es-debugger'
 import * as CANNON from 'cannon-es';
+import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass';
+import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer';
+import {UnrealBloomPass} from 'three/examples/jsm/postprocessing/UnrealBloomPass';
+import {ShaderPass} from 'three/examples/jsm/postprocessing/ShaderPass';
+import {FilmShader} from 'three/examples/jsm/shaders/FilmShader';
+import nipplejs from 'nipplejs';
+
+
+
 
 
 
@@ -12,30 +21,52 @@ const scene = new THREE.Scene();
 const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector('#bg'),
   alpha: true,
-  antialias: true
+  antialias: false
 });
 
-renderer.setClearColor(0xffffff,0);
+renderer.setClearColor(0xffffff,1);
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 // Lighting
 const directionalLight = new THREE.DirectionalLight(0x320D07, 100);
-directionalLight.position.set(1, 1, 1); // Set the position of the light source
-
-const ambientlight = new THREE.AmbientLight(0xffffff,0.4);
-scene.add(ambientlight,directionalLight);
-
-
-// Camera
-const camera = new THREE.PerspectiveCamera(45,window.innerWidth / window.innerHeight,0.1,1000);
-camera.position.set(-50, 90, 0);
+directionalLight.position.set(200, 1, 1); // Set the position of the light source
+const ambientlight = new THREE.AmbientLight(0xffffff,0.5);
+scene.add(directionalLight, ambientlight);
 
 
-// Orbit controls
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.enabled = true; // Disable orbit controls initially
-controls.enableRotate = true; // Disable rotation control
+
+//Iso-Camera
+const camera = new THREE.OrthographicCamera(window.innerWidth / -50, window.innerWidth / 50, window.innerHeight / 50, window.innerHeight / -50, 0.1, 1000);
+
+
+// Camera settings
+const cameraDistance = 40; // Distance from the ball
+const cameraHeight = 35; // Height above the ball
+const cameraFollowSpeed = 0.03; // Speed of camera following (lower value for smoother effect)
+
+camera.position.set(cameraDistance, cameraHeight, cameraDistance);
+let targetCameraPosition = new THREE.Vector3();
+let cameraVelocity = new THREE.Vector3();
+
+
+//Post Processing
+const renderScene = new RenderPass(scene,camera);
+const composer = new EffectComposer(renderer);
+composer.addPass(renderScene);
+
+// composer.addPass(new ShaderPass(FilmShader));
+
+const bloomPass = new UnrealBloomPass(
+  new THREE.Vector2(window.innerWidth,window.innerHeight), //Resolution
+  0.15, //Intensity
+  0.5, //Radius
+  0.1 //Threshold
+);
+composer.addPass(bloomPass);
+
+
+
 
 
 
@@ -76,7 +107,7 @@ loader.load(
 
 let secobject;
 loader.load(
-  'art/WebRoom.gltf',
+  'art/WebRoom2.gltf',
   (gltf) => {
     secobject = gltf.scene;
     let scale = 1.5;
@@ -100,23 +131,6 @@ loader.load(
 
 
 
-
-
-// Ground Plane
-const groundsize = 100;
-const groundGeo = new THREE.PlaneGeometry(groundsize, groundsize);
-const groundMat = new THREE.MeshBasicMaterial({
-  color: 0xffffff,
-  side: THREE.DoubleSide,
-  wireframe: true
-});
-const groundMesh = new THREE.Mesh(groundGeo, groundMat);
-groundMesh.rotation.x = Math.PI / 2;
-scene.add(groundMesh);
-
-
-
-
 //     PHYSICS WORLD   //////////////////////////////////////////////////////////////////////////////////
 
 
@@ -125,7 +139,7 @@ const world = new CANNON.World({
 });
 
 // Ground Body
-
+const groundsize = 130;
 const groundPhysMat = new CANNON.Material();
 const groundBody = new CANNON.Body({
   shape: new CANNON.Box(new CANNON.Vec3(groundsize, 0.1, groundsize)),
@@ -137,144 +151,142 @@ groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), Math.PI / 2);
 
 // Blue Box Body
 const boxPhysMat = new CANNON.Material();
+const startPosition = new CANNON.Vec3(-2, 0.1, -2);
 const boxBody = new CANNON.Body({
   mass: 5,
   shape: new CANNON.Box(new CANNON.Vec3(1, 1, 1)),
-  position: new CANNON.Vec3(-26, 0, -25),
+  position: startPosition,
   material: boxPhysMat
 });
 boxBody.fixedRotation = true;
 world.addBody(boxBody);
 
 
-
-// Collision Bodies
+// Generate all Colliders in the Scene
 const redBoxPhysMat = new CANNON.Material();
-
 function generateBodies() {
-    const bodies = [];
-  
-    const mass = 0;
-    const redBoxPhysMat = new CANNON.Material();
-  
-    const bodyData = [
-      //Livingroom
-      
-      //1.Sofa
-      { shape: new CANNON.Box(new CANNON.Vec3(8, 4, 6)), position: new CANNON.Vec3(16, 0, 2.5) },
-      //2.Chair
-      { shape: new CANNON.Box(new CANNON.Vec3(2.3, 2, 2.3)), position: new CANNON.Vec3(5.2, 0, -0.5)},
-      //3.Tv
-      { shape: new CANNON.Box(new CANNON.Vec3(17, 2, 2.3)), position: new CANNON.Vec3(14, 0, -13.5)},
-      //4.Computer-Bedroom Wall
-      { shape: new CANNON.Box(new CANNON.Vec3(1.2, 6, 11)), position: new CANNON.Vec3(-11, 0, -12) },
-      
+  const bodies = [];
+  const mass = 0;
+  const redBoxPhysMat = new CANNON.Material();
 
-      //Artroom
+  //List of all colliders
+  const bodyData = [
+    //Livingroom
+    
+    //1.Sofa
+    { shape: new CANNON.Box(new CANNON.Vec3(8, 6, 6)), position: new CANNON.Vec3(16, 0, 2.5) },
+    //2.Chair
+    { shape: new CANNON.Box(new CANNON.Vec3(2.3, 6, 2.3)), position: new CANNON.Vec3(5.2, 0, -0.5)},
+    //3.Tv
+    { shape: new CANNON.Box(new CANNON.Vec3(17, 6, 2.3)), position: new CANNON.Vec3(14, 0, -13.5)},
+    //4.Computer-Bedroom Wall
+    { shape: new CANNON.Box(new CANNON.Vec3(1.2, 6, 11)), position: new CANNON.Vec3(-11, 0, -12) },
+    
 
-      //5.Drawing table
-      { shape: new CANNON.Box(new CANNON.Vec3(4.5, 2, 2)), position: new CANNON.Vec3(-35, 0, 8) },
-      //6.Bedroom-Artroom wall
-      { shape: new CANNON.Box(new CANNON.Vec3(15, 2, 1)), position: new CANNON.Vec3(-26, 0, 6) },
-      { shape: new CANNON.Box(new CANNON.Vec3(2.8, 2, 2.1)), position: new CANNON.Vec3(-14, 0, 6) },
-      //7.Canvas
-      { shape: new CANNON.Box(new CANNON.Vec3(1, 2, 1)), position: new CANNON.Vec3(-38.2, 0, 11.5) },
+    //Artroom
 
-      //Bedroom
+    //5.Drawing table
+    { shape: new CANNON.Box(new CANNON.Vec3(4.5, 6, 2)), position: new CANNON.Vec3(-35, 0, 8) },
+    //6.Bedroom-Artroom wall
+    { shape: new CANNON.Box(new CANNON.Vec3(15, 6, 1)), position: new CANNON.Vec3(-26, 0, 6) },
+    { shape: new CANNON.Box(new CANNON.Vec3(2.8, 6, 2.1)), position: new CANNON.Vec3(-14, 0, 6) },
+    //7.Canvas
+    { shape: new CANNON.Box(new CANNON.Vec3(1, 6, 1)), position: new CANNON.Vec3(-38.2, 0, 11.5) },
 
-      //8.Bed
-      { shape: new CANNON.Box(new CANNON.Vec3(7.5, 1, 6)), position: new CANNON.Vec3(-32, 0, -1.5) },
-      //9.BedStand
-      { shape: new CANNON.Box(new CANNON.Vec3(2, 1, 5)), position: new CANNON.Vec3(-38, 0, -13) },
-      //10.BedroomSofa
-      { shape: new CANNON.Box(new CANNON.Vec3(2, 1, 7.5)), position: new CANNON.Vec3(-38, 0, -26) },
-      //11.Table
-      { shape: new CANNON.Box(new CANNON.Vec3(1.5, 1, 1.5)), position: new CANNON.Vec3(-30, 0, -25.2) },
-      //12.PillowOrange
-      { shape: new CANNON.Box(new CANNON.Vec3(1.56, 1, 1.56)), position: new CANNON.Vec3(-21, 0, -30.2) },
-      //13.PillowWhite
-      { shape: new CANNON.Box(new CANNON.Vec3(1.5, 1, 1.5)), position: new CANNON.Vec3(-24.6, 0, -31.2) },
-      //14.Door
-      { shape: new CANNON.Box(new CANNON.Vec3(2.4, 3, 2.4)), position: new CANNON.Vec3(-14, 0, -32)},
-      
-      //Study Room
-      
-      //15.Table
-      { shape: new CANNON.Box(new CANNON.Vec3(10.5, 2, 2.8)), position: new CANNON.Vec3(0, 0, -31)},
-      //16.Chair
-      { shape: new CANNON.Box(new CANNON.Vec3(2, 2, 2)), position: new CANNON.Vec3(5.4, 0, -28)},
-      //17.Wall Shelf
-      { shape: new CANNON.Box(new CANNON.Vec3(2, 3, 1)), position: new CANNON.Vec3(13, 0, -33)},
-      
-      //18.Cabinet
-      { shape: new CANNON.Box(new CANNON.Vec3(9.4, 4, 3.9)), position: new CANNON.Vec3(11, 0, 40.5) },
-      { shape: new CANNON.Box(new CANNON.Vec3(2.5, 4, 10.4)), position: new CANNON.Vec3(5, 0, 31.5) },
-      { shape: new CANNON.Box(new CANNON.Vec3(4.5, 6, 2.4)), position: new CANNON.Vec3(26, 0, 40.5) },
-      
-      //Walls
-      
-      //19.Bedroom-ArtRoom
-      { shape: new CANNON.Box(new CANNON.Vec3(1, 4, 28.5)), position: new CANNON.Vec3(-41, 1.5, -7) },
-      //20.Bedroom-Study Room
-      { shape: new CANNON.Box(new CANNON.Vec3(42.5, 4, 1)), position: new CANNON.Vec3(-0.2, 1.5, -33.4) },
-      //21.StudyRoom - Ground
-      { shape: new CANNON.Box(new CANNON.Vec3(4.5, 4, 10.2)), position: new CANNON.Vec3(21.7, 1.5, -25) },
-      //22.LivingRoom-StudyRoom
-      { shape: new CANNON.Box(new CANNON.Vec3(17.5, 4, 1)), position: new CANNON.Vec3(14, 1.5, -15.4) },
-      //23.LivingRoom Front
-      { shape: new CANNON.Box(new CANNON.Vec3(1, 4, 12.5)), position: new CANNON.Vec3(31, 1.5, 32) },
-      { shape: new CANNON.Box(new CANNON.Vec3(1, 4, 14.5)), position: new CANNON.Vec3(31, 1.5, -1.5) },
-      //24.LivingRoom-ArtRoom
-      { shape: new CANNON.Box(new CANNON.Vec3(16.5, 4, 1)), position: new CANNON.Vec3(-24.4, 1.5, 20.4) },
-      { shape: new CANNON.Box(new CANNON.Vec3(2.8, 4, 3)), position: new CANNON.Vec3(0.3, 1.5, 23.1) },
-      { shape: new CANNON.Box(new CANNON.Vec3(0.8, 6, 5)), position: new CANNON.Vec3(-11, 0, 18.5) },
+    //Bedroom
 
-      //Ground
-      //25.Backyard Shrub1
-      { shape: new CANNON.Box(new CANNON.Vec3(2.2, 4, 2.2)), position: new CANNON.Vec3(-11.5, 1.5, 23.1) },
-      //26.Backyard Shrub2
-      { shape: new CANNON.Box(new CANNON.Vec3(3.2, 4, 2.2)), position: new CANNON.Vec3(-41, 1.5, 23.1) },
-      //27.Back Tree
-      { shape: new CANNON.Box(new CANNON.Vec3(1.2, 4, 1.2)), position: new CANNON.Vec3(-32.5, 1.5, 35.1) },
-       //28.Bench
-       { shape: new CANNON.Box(new CANNON.Vec3(1.5, 4, 5.2)), position: new CANNON.Vec3(-29, 1.5, 32) },
-       //29.Front Shrub Gate 1
-       { shape: new CANNON.Box(new CANNON.Vec3(2, 4, 5.2)), position: new CANNON.Vec3(35, 1.5, 25.1) },
-       //30.Front Shrub Gate 2
-       { shape: new CANNON.Box(new CANNON.Vec3(2, 4, 3.2)), position: new CANNON.Vec3(34, 1.5, 6.1) },
-       //31.Front Shrub Gate 3
-       { shape: new CANNON.Box(new CANNON.Vec3(5, 4, 3.2)), position: new CANNON.Vec3(37, 1.5, 42.1) },
-      //Fence
-      { shape: new CANNON.Box(new CANNON.Vec3(0.5, 4, 9.5)), position: new CANNON.Vec3(42.6, 1.5, 35) },
-      { shape: new CANNON.Box(new CANNON.Vec3(0.5, 4, 20)), position: new CANNON.Vec3(42.6, 1.5, -13.5) },
-      //Back
-      { shape: new CANNON.Box(new CANNON.Vec3(11.5, 4, 0.5)), position: new CANNON.Vec3(-6, 1.5, 44) },
-      { shape: new CANNON.Box(new CANNON.Vec3(9.5, 4, 0.5)), position: new CANNON.Vec3(-35.4, 1.5, 44) },
-      { shape: new CANNON.Box(new CANNON.Vec3(0.5, 4, 9.5)), position: new CANNON.Vec3(-45.4, 1.5, 34) },
-      
+    //8.Bed
+    { shape: new CANNON.Box(new CANNON.Vec3(7.5, 6, 6)), position: new CANNON.Vec3(-32, 0, -1.5) },
+    //9.BedStand
+    { shape: new CANNON.Box(new CANNON.Vec3(2, 6, 5)), position: new CANNON.Vec3(-38, 0, -13) },
+    //10.BedroomSofa
+    { shape: new CANNON.Box(new CANNON.Vec3(2, 6, 7.5)), position: new CANNON.Vec3(-38, 0, -26) },
+    //11.Table
+    { shape: new CANNON.Box(new CANNON.Vec3(1.5, 6, 1.5)), position: new CANNON.Vec3(-30, 0, -25.2) },
+    //12.PillowOrange
+    { shape: new CANNON.Box(new CANNON.Vec3(1.56, 6, 1.56)), position: new CANNON.Vec3(-21, 0, -30.2) },
+    //13.PillowWhite
+    { shape: new CANNON.Box(new CANNON.Vec3(1.5, 6, 1.5)), position: new CANNON.Vec3(-24.6, 0, -31.2) },
+    //14.Door
+    { shape: new CANNON.Box(new CANNON.Vec3(2.4, 6, 2.4)), position: new CANNON.Vec3(-14, 0, -32)},
+    
+    //Study Room
+    
+    //15.Table
+    { shape: new CANNON.Box(new CANNON.Vec3(10.5, 6, 2.8)), position: new CANNON.Vec3(0, 0, -31)},
+    //16.Chair
+    { shape: new CANNON.Box(new CANNON.Vec3(2, 6, 2)), position: new CANNON.Vec3(5.4, 0, -28)},
+    //17.Wall Shelf
+    { shape: new CANNON.Box(new CANNON.Vec3(2, 6, 1)), position: new CANNON.Vec3(13, 0, -33)},
+    
+    //18.Cabinet
+    { shape: new CANNON.Box(new CANNON.Vec3(9.4, 6, 3.9)), position: new CANNON.Vec3(11, 0, 40.5) },
+    { shape: new CANNON.Box(new CANNON.Vec3(2.5, 6, 10.4)), position: new CANNON.Vec3(5, 0, 31.5) },
+    { shape: new CANNON.Box(new CANNON.Vec3(4.5, 6, 2.4)), position: new CANNON.Vec3(26, 0, 40.5) },
+    
+    //Walls
+    
+    //19.Bedroom-ArtRoom
+    { shape: new CANNON.Box(new CANNON.Vec3(1, 6, 28.5)), position: new CANNON.Vec3(-41, 1.5, -7) },
+    //20.Bedroom-Study Room
+    { shape: new CANNON.Box(new CANNON.Vec3(42.5, 6, 1)), position: new CANNON.Vec3(-0.2, 1.5, -33.4) },
+    //21.StudyRoom - Ground
+    { shape: new CANNON.Box(new CANNON.Vec3(4.5, 4, 10.2)), position: new CANNON.Vec3(21.7, 1.5, -25) },
+    //22.LivingRoom-StudyRoom
+    { shape: new CANNON.Box(new CANNON.Vec3(17.5, 4, 1)), position: new CANNON.Vec3(14, 1.5, -15.4) },
+    //23.LivingRoom Front
+    { shape: new CANNON.Box(new CANNON.Vec3(1, 4, 12.5)), position: new CANNON.Vec3(31, 1.5, 32) },
+    { shape: new CANNON.Box(new CANNON.Vec3(1, 4, 14.5)), position: new CANNON.Vec3(31, 1.5, -1.5) },
+    //24.LivingRoom-ArtRoom
+    { shape: new CANNON.Box(new CANNON.Vec3(16.5, 4, 1)), position: new CANNON.Vec3(-24.4, 1.5, 20.4) },
+    { shape: new CANNON.Box(new CANNON.Vec3(2.8, 4, 3)), position: new CANNON.Vec3(0.3, 1.5, 23.1) },
+    { shape: new CANNON.Box(new CANNON.Vec3(0.8, 6, 5)), position: new CANNON.Vec3(-11, 0, 18.5) },
 
-    ];
-  
-    bodyData.forEach(data => {
-      const body = new CANNON.Body({
-        mass: mass,
-        shape: data.shape,
-        position: data.position,
-        material: redBoxPhysMat
-      });
-  
-      world.addBody(body);
-      bodies.push(body);
+    //Ground
+    //25.Backyard Shrub1
+    { shape: new CANNON.Box(new CANNON.Vec3(2.2, 4, 2.2)), position: new CANNON.Vec3(-11.5, 1.5, 23.1) },
+    //26.Backyard Shrub2
+    { shape: new CANNON.Box(new CANNON.Vec3(3.2, 4, 2.2)), position: new CANNON.Vec3(-41, 1.5, 23.1) },
+    //27.Back Tree
+    { shape: new CANNON.Box(new CANNON.Vec3(1.2, 4, 1.2)), position: new CANNON.Vec3(-32.5, 1.5, 35.1) },
+     //28.Bench
+     { shape: new CANNON.Box(new CANNON.Vec3(1.5, 4, 5.2)), position: new CANNON.Vec3(-29, 1.5, 32) },
+     //29.Front Shrub Gate 1
+     { shape: new CANNON.Box(new CANNON.Vec3(2, 4, 5.2)), position: new CANNON.Vec3(35, 1.5, 25.1) },
+     //30.Front Shrub Gate 2
+     { shape: new CANNON.Box(new CANNON.Vec3(2, 4, 3.2)), position: new CANNON.Vec3(34, 1.5, 6.1) },
+     //31.Front Shrub Gate 3
+     { shape: new CANNON.Box(new CANNON.Vec3(5, 4, 3.2)), position: new CANNON.Vec3(37, 1.5, 42.1) },
+    //Fence
+    { shape: new CANNON.Box(new CANNON.Vec3(0.5, 4, 9.5)), position: new CANNON.Vec3(42.6, 1.5, 35) },
+    { shape: new CANNON.Box(new CANNON.Vec3(0.5, 4, 20)), position: new CANNON.Vec3(42.6, 1.5, -13.5) },
+    //Back
+    { shape: new CANNON.Box(new CANNON.Vec3(11.5, 4, 0.5)), position: new CANNON.Vec3(-6, 1.5, 44) },
+    { shape: new CANNON.Box(new CANNON.Vec3(9.5, 4, 0.5)), position: new CANNON.Vec3(-35.4, 1.5, 44) },
+    { shape: new CANNON.Box(new CANNON.Vec3(0.5, 4, 9.5)), position: new CANNON.Vec3(-45.4, 1.5, 34) },
+    
+
+  ];
+
+  bodyData.forEach(data => {
+    const body = new CANNON.Body({
+      mass: mass,
+      shape: data.shape,
+      position: data.position,
+      material: redBoxPhysMat
     });
-  
-    return bodies;
-  }
-  
-  generateBodies();
+    world.addBody(body);
+    bodies.push(body);
+  });
+
+  return bodies;
+}
+
+generateBodies();
   
 
 
-
+//Contact Material to activate collisions
 // Ground-Box Contact Material
 const groundBoxContactMat = new CANNON.ContactMaterial(
   groundPhysMat,
@@ -304,80 +316,141 @@ document.addEventListener('keyup', (event) => {
   keyboard[event.code] = false;
 });
 
-// function levitateObject() {
-//   if(object){
-    
-//       const oscillationSpeed = 0.005; 
-//       const amplitude = 0.3; 
 
-//     boxBody.position.y = Math.sin(Date.now() * oscillationSpeed) * amplitude;
-      
-//     }
-//   }
+
+
+
+const joystickMovement = {
+  forward: false,
+  backward: false,
+  left: false,
+  right: false
+};
+
+
 
 
 function moveobject() {
-  if (object) {
-    const speed = 0.1;
+  const section = document.getElementById('contact');
+  const rect = section.getBoundingClientRect();
+  const isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
 
-    if (keyboard['KeyW']) {
-      boxBody.position.x -= speed;
-      object.rotation.y = 0; 
+  if (!isVisible) {
+    const speed = 0.15;
+
+    // Determine the movement based on input
+    let movement = { x: 0, z: 0 };
+
+    if (keyboard['KeyS'] || joystickMovement.right) {
+      movement.x += speed;
+      object.rotation.y = Math.PI;
     }
 
-    if (keyboard['KeyS']) {
-      boxBody.position.x += speed;
-      object.rotation.y = Math.PI; 
+    if (keyboard['KeyW'] || joystickMovement.left) {
+      movement.x -= speed;
+      object.rotation.y = 0;
     }
 
-    if (keyboard['KeyA']) {
-      boxBody.position.z += speed;
-      object.rotation.y = Math.PI / 2; 
-      
+    if (keyboard['KeyA'] || joystickMovement.backward) {
+      movement.z += speed;
+      object.rotation.y = Math.PI / 2;
     }
 
-    if (keyboard['KeyD']) {
-      boxBody.position.z -= speed; 
-      object.rotation.y = -Math.PI / 2; 
+    if (keyboard['KeyD'] || joystickMovement.forward) {
+      movement.z -= speed;
+      object.rotation.y = -Math.PI / 2;
     }
 
+    // Update the object's position based on movement
+    boxBody.position.x += movement.x;
+    boxBody.position.z += movement.z;
 
-    //Attach collider to the blue body
-      if(object){
-        object.position.set(boxBody.position.x, boxBody.position.y-1.8, boxBody.position.z);
-      }
+    // Update target camera position relative to the object
+    targetCameraPosition.x = boxBody.position.x + cameraDistance;
+    targetCameraPosition.y = boxBody.position.y + cameraHeight;
+    targetCameraPosition.z = boxBody.position.z + cameraDistance;
 
+    // Smoothly move the camera towards the target position
+    cameraVelocity.lerp(targetCameraPosition, cameraFollowSpeed);
+    camera.position.copy(cameraVelocity);
 
+    // Attach collider to the object
+    if (object) {
+      object.position.set(boxBody.position.x, boxBody.position.y - 3.3, boxBody.position.z);
     }
   }
+}
 
+// Joystick setup
+const joystickContainer = document.getElementById('joystick');
+const joystick = nipplejs.create({
+  zone: joystickContainer,
+  mode: 'static',
+  position: { left: '50%', bottom: '50%' },
+  size: 200,
+  color: 'rgba(255, 255, 255, 0.15)',
+})[0];
+
+joystick.on('start end', (evt, data) => {
+  // Reset joystickMovement on start and end events
+  joystickMovement.forward = false;
+  joystickMovement.backward = false;
+  joystickMovement.left = false;
+  joystickMovement.right = false;
+});
+
+joystick.on('move', (evt, data) => {
+  const angle = data.angle.radian;
+
+  // Set the joystickMovement based on the joystick angle
+  if (angle >= 0 && angle < (Math.PI / 2)) {
+   
+    joystickMovement.forward = true;     // Moving forward
+  
+  } else if (angle >= Math.PI/2 && angle < Math.PI) {
+    
+    joystickMovement.left = true;     // Moving left
+  
+  } else if (angle >= Math.PI && angle < (Math.PI * 3) / 2) {
+    
+    joystickMovement.backward = true;   // Moving backward
+  
+  } else {
+    
+    joystickMovement.right = true;    // Moving right
+  }
+});
+
+
+//Reset to initial position if character moves out of bounds
   function updatePositionIfBelow(boxBody, targetCoordinates) {
     if (boxBody.position.y < -2) {
       boxBody.position.copy(targetCoordinates);
+      object.rotation.y = Math.PI/2;
     }
   }
 
   
 
-// Cannon Debugger
-const cannonDebugger = new CannonDebugger(scene, world);
+// const cannonDebugger = new CannonDebugger(scene, world);
   
 
-
+// Create a colored overlay
+var overlay = document.getElementById('scene');
+overlay.style.backgroundColor = 'rgba(84, 0, 31, 0.43)'; // Set the desired color and opacity
 
 
 function animate() {
   requestAnimationFrame(animate);
-  
   world.step(timeStep);
 
   moveobject();
-  // levitateObject();
-  cannonDebugger.update();
-  updatePositionIfBelow(boxBody, new THREE.Vector3(-26, 1, -25));
+  
+  // cannonDebugger.update();
+  updatePositionIfBelow(boxBody,startPosition);
 
-  // Render the scene
-  renderer.render(scene, camera);
+  // renderer.render(scene, camera);
+  composer.render();
 }
 animate();
 
@@ -385,114 +458,3 @@ animate();
 
 
 
-
-
-// // Resize Handler
-// window.addEventListener('resize', function () {
-//   camera.aspect = window.innerWidth / window.innerHeight;
-//   camera.updateProjectionMatrix();
-//   renderer.setSize(window.innerWidth, window.innerHeight);
-// });
-
-
-
-// // Movement Controls
-// let movement = {
-//   forward: false,
-//   backward: false,
-//   left: false,
-//   right: false
-// };
-
-// document.addEventListener('keydown', handleKeyDown);
-// document.addEventListener('keyup', handleKeyUp);
-
-// function handleKeyDown(event) {
-//   switch (event.code) {
-//     case 'ArrowUp':
-//     case 'KeyW':
-//       movement.forward = true;
-//       break;
-//     case 'ArrowDown':
-//     case 'KeyS':
-//       movement.backward = true;
-//       break;
-//     case 'ArrowLeft':
-//     case 'KeyA':
-//       movement.left = true;
-//       break;
-//     case 'ArrowRight':
-//     case 'KeyD':
-//       movement.right = true;
-//       break;
-//   }
-// }
-
-// function handleKeyUp(event) {
-//   switch (event.code) {
-//     case 'ArrowUp':
-//     case 'KeyW':
-//       movement.forward = false;
-//       break;
-//     case 'ArrowDown':
-//     case 'KeyS':
-//       movement.backward = false;
-//       break;
-//     case 'ArrowLeft':
-//     case 'KeyA':
-//       movement.left = false;
-//       break;
-//     case 'ArrowRight':
-//     case 'KeyD':
-//       movement.right = false;
-//       break;
-//   }
-// }
-
-// function moveBox() {
-//   if(object){
-//     const speed =0.1;
-//   if (movement.forward) {
-//     boxBody.position.z += speed;
-//     object.rotation.y = Math.PI/2;
-//   }
-//   if (movement.backward) {
-//     boxBody.position.z -= speed;
-//     object.rotation.y = -Math.PI/2;
-//   }
-//   if (movement.left) {
-//     boxBody.position.x += speed;
-//     object.rotation.y = -Math.PI;
-//   }
-//   if (movement.right) {
-//     boxBody.position.x -= speed;
-//     object.rotation.y = 0;
-    
-//   }
-//   }  
-
-  
-  
- 
-// }
-
-
-
-// // Cannon Debugger
-// const cannonDebugger = new CannonDebugger(scene, world);
-
-// // Animation Loop
-// function animate() {
-  
-//   world.step(timeStep);
-
-//   moveBox();
-
-//   renderer.render(scene, camera);
-//   cannonDebugger.update();
-  
-// }
-
-
-
-// renderer.setAnimationLoop(animate);
