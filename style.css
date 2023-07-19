@@ -57,6 +57,7 @@ canvas {
   justify-content: center;
   align-items: center;
   bottom: 0;
+  right: 0;
   width: 300px;
   height: 300px;
   z-index: 1000;
@@ -227,7 +228,7 @@ header {
 }
 .hero-text{
   visibility: hidden;
-  font-size: 32px;
+  font-size: 28px;
 }
 .hero-text button{
   display: inline-block;
@@ -319,7 +320,7 @@ h8{
 .music {
   position: fixed;
   bottom: 40px;
-  right: 50px;
+  left: 50px;
   width: 75px; /* Adjust the width and height as needed */
   height: 75px;
   background-color: transparent;
@@ -443,17 +444,17 @@ blockquote p {
   overflow-x: hidden; /* Enable horizontal scrolling */
   position: relative;
 }
+
 .projects-wrapper {
   display: flex; /* Create a flex container */
   flex-wrap: nowrap; /* Prevent projects from wrapping to new lines */
-  margin-top: 50px; /* Add margin to create space for the sticky heading */
+  margin-top: 50px; 
   flex-direction: column; 
   scrollbar-width: none;
-  
 }
 
 .projects-wrapper::-webkit-scrollbar {
-  display: none; /* Hide the default scrollbar in WebKit browsers */
+  display: none;
 }
 
 .projects-heading {
@@ -469,32 +470,32 @@ blockquote p {
   overflow-x: auto;
   padding-bottom: 20px;
   scroll-behavior: smooth;
+  height: 49vh; /* Container height */
 }
 
 .project {
-  display: inline-block; /* Display projects side by side */
-  margin-right: 20px; /* Add spacing between projects */
-  position: relative;
-  overflow: hidden;
-  flex-shrink: 0; /* Prevent shrinking of images */ 
-  max-width: 100%;
+  /* Size of projects based on the container's height */
+  height: 100%;
+  padding-right: 10px;
+  flex: 0 0 auto; /* To ensure the width adjusts based on the content */
+  position: relative; /* Add relative positioning to the project container */
 }
-
 
 .project img {
-  width: 100%;
-  height: auto;
+  /* Set the height of the image to fill the project container */
+  height: 100%;
+  width: auto;
   display: block;
   transition: filter 0.3s ease;
+  object-fit: cover; /* To make sure the image covers the entire container */
 }
-
 
 .overlay {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 20%;
+  height: 100%; /* Match the height of the image */
   background: linear-gradient(to top, rgba(0, 0, 0, 0.804), transparent);
   padding: 10px;
   box-sizing: border-box;
@@ -505,6 +506,7 @@ blockquote p {
   justify-content: flex-start;
   pointer-events: none;
 }
+
 
 .project:hover .overlay {
   opacity: 1;
@@ -632,8 +634,6 @@ textarea::placeholder {
   }
 
   #joystick{
-    bottom: 0;
-    left: 0%;
     width: 250px;
     height: 250px;
   }
@@ -735,7 +735,7 @@ textarea::placeholder {
 
   .music {
     bottom: 30px;
-    right: 15px;
+    left: 25px;
     width: 46px; /* Adjust the width and height as needed */
     height: 46px;
     font-size: 20px;

@@ -23,16 +23,10 @@
 
   <div class="loader">
     <div class="loader-content">
-      <img src="./public/art/controls.png">
+      <img src="art/controls.png">
       <h2>Use WASD or Joystick to Control</h2>
     </div>   
   </div>
-    <!-- 3d scene -->
-    <script type="module" src="./3d2.js"></script>
-
-    
-    
-    
     
 
   <!-- scrollreveal effect -->
@@ -41,8 +35,9 @@
 
   <div id="scene"></div>  <!-- Color Overlay -->
   <canvas id="bg"></canvas>   <!-- 3d scene  -->
+  <script type="module" src="./3d2.js"></script> <!-- 3d scene code -->
 
-
+  <!-- Joystick container -->
   <div id="joystick"></div>
 
 
@@ -72,7 +67,7 @@
         <h7>Hi, I am</h7>
         <h1>Nitash Biswas</h1>
         <h2>Developer.Illustrator.Designer.</h2>
-        <button type="submit" id="cv" onclick="window.open('https://youtu.be/GfzbjKk3dp0', '_blank')">Download CV</button>
+        <button type="submit" id="cv">Download CV</button>
       </div>
 
       <div class="hero-img">
@@ -355,7 +350,7 @@ menu.addEventListener('click', toggleMenu);
 window.addEventListener('load', () => {
   setTimeout(() => {
     document.querySelector('.loader').classList.add('loader--hidden');
-  }, 1000); // 2-second delay
+  }, 2000); // 2-second delay
 });
 
 
