@@ -434,7 +434,6 @@ joystick.on('move', (evt, data) => {
 
 // const cannonDebugger = new CannonDebugger(scene, world);
   
-
 // Create a colored overlay
 var overlay = document.getElementById('scene');
 overlay.style.backgroundColor = 'rgba(84, 0, 31, 0.43)'; // Set the desired color and opacity
