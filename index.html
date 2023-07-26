@@ -13,11 +13,10 @@
   <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@100;300;400&family=Roboto:wght@500&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/gh/kripken/ammo.js@HEAD/builds/ammo.wasm.js"></script>
 
   
-  <script type="module" crossorigin src="./assets/index-113ad96a.js"></script>
-  <link rel="stylesheet" href="./assets/index-7c6faffc.css">
+  <script type="module" crossorigin src="./assets/index-9a4b9134.js"></script>
+  <link rel="stylesheet" href="./assets/index-7aab6f3d.css">
 </head>
 
 <body>
@@ -39,64 +38,73 @@
   <canvas id="bg"></canvas>   <!-- 3d scene  -->
    <!-- 3d scene code -->
 
-  <!-- Joystick container -->
-  <div id="joystick"></div>
-
-
   
+    <!-- Joystick container -->
+    <div id="joystick"></div>
+
+
+    <header id="header">
+        <a onclick="scrollToSection('header', 300)" class="logo" id="logo">Nb.</a>
+        
+        <div class="hideable">
+          <div class="nav-container">
+            <ul class="navlist">
+              <li><a onclick="scrollToSection('about', 300),toggleMenu()">About</a></li>
+              <li><a onclick="scrollToSection('projects', 300),toggleMenu()">Projects</a></li>
+              <li><a onclick="scrollToSection('skills', 300),toggleMenu()">Skills</a></li>
+              <li><a onclick="scrollToSection('contact', 300),toggleMenu()">Contact</a></li>
+            </ul>
+            </div>
+            
+            <div class="bx bx-menu" id="menu-icon">
+              <div class="circle"></div>
+            </div>
+        </div>
   
-  <header id="header">
-      <a onclick="scrollToSection('header', 300)" class="logo" id="logo">Nb.</a>
-      
-      <div class="nav-container">
-      <ul class="navlist">
-        <li><a onclick="scrollToSection('about', 300),toggleMenu()">About</a></li>
-        <li><a onclick="scrollToSection('projects', 300),toggleMenu()">Projects</a></li>
-        <li><a onclick="scrollToSection('skills', 300),toggleMenu()">Skills</a></li>
-        <li><a onclick="scrollToSection('contact', 300),toggleMenu()">Contact</a></li>
-      </ul>
+        
+    </header>
+  
+    <section class="hero" id="hero">
+      <div class="hideable">
+          <div class="hero-text">
+          <h7>Hi, I am</h7>
+          <h1>Nitash Biswas</h1>
+          <h2>Developer.Illustrator.Designer.</h2>
+          <button type="submit" id="cv">Download CV</button>
+        </div>
+  
+        <div class="hero-img">
+          <!-- <img src="1.png"> -->
+        </div>
+  
+        <div class="vertical-navbar">
+        
+          <a href="https://www.instagram.com/nitashbiswas/" target="_blank"><i class="fa fa-instagram" ></i></a>
+          <a href="https://www.linkedin.com/in/nitash-biswas/" target="_blank"><i class="fa fa-linkedin-square">  </i></a>
+          <a href="https://github.com/Nitash-Biswas" target="_blank"><i class="fa fa-github"></i></a>
+        
       </div>
-      
-      <div class="bx bx-menu" id="menu-icon">
-        <div class="circle"></div>
-      </div>
-
-      
-  </header>
-
-  <section class="hero" id="hero">
-      <div class="hero-text">
-        <h7>Hi, I am</h7>
-        <h1>Nitash Biswas</h1>
-        <h2>Developer.Illustrator.Designer.</h2>
-        <button type="submit" id="cv">Download CV</button>
-      </div>
-
-      <div class="hero-img">
-        <!-- <img src="1.png"> -->
-      </div>
-
-      <div class="vertical-navbar">
-      
-        <a href="https://www.instagram.com/nitashbiswas/" target="_blank"><i class="fa fa-instagram" ></i></a>
-        <a href="https://www.linkedin.com/in/nitash-biswas/" target="_blank"><i class="fa fa-linkedin-square">  </i></a>
-        <a href="https://github.com/Nitash-Biswas" target="_blank"><i class="fa fa-github"></i></a>
-      
     </div>
-
-     
-  </section>
-
-    
+  
+       
+    </section>
+  
       
-  <!-- <div class="swipe">
-    <h8 onclick="scrollToSection('about', 300)">Scroll down</h8>
-    <div class="dart"></div>
-  </div> -->
+        
+    <!-- <div class="swipe">
+      <h8 onclick="scrollToSection('about', 300)">Scroll down</h8>
+      <div class="dart"></div>
+    </div> -->
+      
+    <button class="music">
+      <i class="ri-volume-mute-fill"></i>
+    </button>
+
+      <button class="close" id="close" onclick="hideContent()">
+      <i class="ri-close-line"></i>
+    </button>
     
-  <button class="music">
-    <i class="ri-volume-mute-fill"></i>
-  </button>
+  
    
   
 
@@ -114,7 +122,7 @@
 <section id="projects">
   <div class="projects-wrapper">
     <div class="projects-heading">
-      <h3>👩🏽‍💻 Projects</h3>
+      <h3>🧑‍💻 Projects</h3>
       <h4>Illustrations</h4>
     </div>
 
@@ -164,9 +172,9 @@
   
 <section id="skills">
     <blockquote>
-      <p>That sounds so wrong!!</p>
+      <p>Get things done!!</p>
     </blockquote>
-    <h3>🌮 Skills</h3>
+    <h3>🎮 Skills</h3>
     
     <h4>Programming</h4>
     <p>C++, Python</p>
@@ -175,11 +183,11 @@
     <h4>Design</h4>
     <p>Photoshop, Illustrator, Figma</p>
     <h4>Game Development</h4>
-    <p>Blender, Unity, Unreal Engine</p>
-    
-    
-    
+    <p>Blender, Unity, Unreal Engine</p>   
 </section>
+
+
+
 
 <section id="contact">
 
@@ -228,7 +236,17 @@
 <footer >
   <h5>&copy; 2023 Nitash Biswas. All rights reserved.</h5>
 </footer>
-  
+
+
+
+
+
+
+
+
+
+
+
  <!--/////////Scrolling and Other Functions////////////////////////////////////////////////////////////////////////////////////////////////////////////////  -->
 <script>
   // Function to smoothly scroll to a section when clicking on a navigation item
@@ -310,13 +328,13 @@
 let menu = document.querySelector('#menu-icon');
 menu.addEventListener('click', toggleMenu);
 
-  const musicButton = document.querySelector('.music');
+    const musicButton = document.querySelector('.music');
     const icon = musicButton.querySelector('i');
     const audio = new Audio('art/music.mp3'); // Replace with the actual audio file path
 
     musicButton.addEventListener('click', () => {
-      icon.classList.toggle('ri-volume-up-line');
-      icon.classList.toggle('ri-volume-mute-fill');
+    icon.classList.toggle('ri-volume-up-line');
+    icon.classList.toggle('ri-volume-mute-fill');
 
       if (icon.classList.contains('ri-volume-up-line')) {
         audio.loop = true;
@@ -342,11 +360,11 @@ menu.addEventListener('click', toggleMenu);
     sr.reveal('.vertical-navbar', { distance: '100px', delay: 400, origin: 'left' });
     sr.reveal('.swipe', { distance: '100px', delay: 400, origin: 'left' });
   }
+  // // Call the revealAnimations function on page load
+  window.addEventListener('load', revealAnimations);
   
 
 
-  // // Call the revealAnimations function on page load
-  window.addEventListener('load', revealAnimations);
  
 
 window.addEventListener('load', () => {
@@ -374,14 +392,39 @@ function blurBG() {
     canvas.style.filter = 'none';
   }
 }
-
 window.addEventListener('scroll', blurBG);
 
-   </script> 
-   
+
+
+function hideContent(){
+  const hideableElements = document.getElementsByClassName("hideable");
+  
+
+    // Loop through the elements and toggle their visibility
+    for (let i = 0; i < hideableElements.length; i++) {
+        hideableElements[i].classList.toggle("hidden");
+    }
+    
+    //Close Button
+    const closeButton = document.getElementById("close");
+    closeButton.style.opacity = closeButton.style.opacity === "1" ? "0" : "1";
+    closeButton.style.pointerEvents = closeButton.style.pointerEvents === "all" ? "none" : "all";
+
+    
+    // Lock or unlock scrolling
+    const body = document.body;
+    body.style.overflow = body.style.overflow === "hidden" ? "auto" : "hidden";
+  
+}
+
+
+</script> 
+
+
+
+
+
+
+
 </body>
-
-
-
-
 </html>
