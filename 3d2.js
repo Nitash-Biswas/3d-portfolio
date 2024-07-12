@@ -91,7 +91,7 @@ loader.load(
     let scale = 0.3;
     object.scale.set(scale, scale, scale);
 
-    
+
 
     scene.add(object);
     object.rotation.y = Math.PI/2;
@@ -113,7 +113,7 @@ loader.load(
     let scale = 1.5;
     secobject.scale.set(scale, scale, scale);
 
-    
+
 
     scene.add(secobject);
     secobject.position.set(3, 0,-1);
@@ -172,7 +172,7 @@ function generateBodies() {
   //List of all colliders
   const bodyData = [
     //Livingroom
-    
+
     //1.Sofa
     { shape: new CANNON.Box(new CANNON.Vec3(8, 6, 6)), position: new CANNON.Vec3(16, 0, 2.5) },
     //2.Chair
@@ -181,7 +181,7 @@ function generateBodies() {
     { shape: new CANNON.Box(new CANNON.Vec3(17, 6, 2.3)), position: new CANNON.Vec3(14, 0, -13.5)},
     //4.Computer-Bedroom Wall
     { shape: new CANNON.Box(new CANNON.Vec3(1.2, 6, 11)), position: new CANNON.Vec3(-11, 0, -12) },
-    
+
 
     //Artroom
 
@@ -209,23 +209,23 @@ function generateBodies() {
     { shape: new CANNON.Box(new CANNON.Vec3(1.5, 6, 1.5)), position: new CANNON.Vec3(-24.6, 0, -31.2) },
     //14.Door
     { shape: new CANNON.Box(new CANNON.Vec3(2.4, 6, 2.4)), position: new CANNON.Vec3(-14, 0, -32)},
-    
+
     //Study Room
-    
+
     //15.Table
     { shape: new CANNON.Box(new CANNON.Vec3(10.5, 6, 2.8)), position: new CANNON.Vec3(0, 0, -31)},
     //16.Chair
     { shape: new CANNON.Box(new CANNON.Vec3(2, 6, 2)), position: new CANNON.Vec3(5.4, 0, -28)},
     //17.Wall Shelf
     { shape: new CANNON.Box(new CANNON.Vec3(2, 6, 1)), position: new CANNON.Vec3(13, 0, -33)},
-    
+
     //18.Cabinet
     { shape: new CANNON.Box(new CANNON.Vec3(9.4, 6, 3.9)), position: new CANNON.Vec3(11, 0, 40.5) },
     { shape: new CANNON.Box(new CANNON.Vec3(2.5, 6, 10.4)), position: new CANNON.Vec3(5, 0, 31.5) },
     { shape: new CANNON.Box(new CANNON.Vec3(4.5, 6, 2.4)), position: new CANNON.Vec3(26, 0, 40.5) },
-    
+
     //Walls
-    
+
     //19.Bedroom-ArtRoom
     { shape: new CANNON.Box(new CANNON.Vec3(1, 6, 28.5)), position: new CANNON.Vec3(-41, 1.5, -7) },
     //20.Bedroom-Study Room
@@ -264,7 +264,7 @@ function generateBodies() {
     { shape: new CANNON.Box(new CANNON.Vec3(11.5, 4, 0.5)), position: new CANNON.Vec3(-6, 1.5, 44) },
     { shape: new CANNON.Box(new CANNON.Vec3(9.5, 4, 0.5)), position: new CANNON.Vec3(-35.4, 1.5, 44) },
     { shape: new CANNON.Box(new CANNON.Vec3(0.5, 4, 9.5)), position: new CANNON.Vec3(-45.4, 1.5, 34) },
-    
+
 
   ];
 
@@ -283,7 +283,7 @@ function generateBodies() {
 }
 
 generateBodies();
-  
+
 
 
 //Contact Material to activate collisions
@@ -404,19 +404,19 @@ joystick.on('move', (evt, data) => {
 
   // Set the joystickMovement based on the joystick angle
   if (angle >= 0 && angle < (Math.PI / 2)) {
-   
+
     joystickMovement.forward = true;     // Moving forward
-  
+
   } else if (angle >= Math.PI/2 && angle < Math.PI) {
-    
+
     joystickMovement.left = true;     // Moving left
-  
+
   } else if (angle >= Math.PI && angle < (Math.PI * 3) / 2) {
-    
+
     joystickMovement.backward = true;   // Moving backward
-  
+
   } else {
-    
+
     joystickMovement.right = true;    // Moving right
   }
 });
@@ -430,10 +430,10 @@ joystick.on('move', (evt, data) => {
     }
   }
 
-  
+
 
 // const cannonDebugger = new CannonDebugger(scene, world);
-  
+
 // Create a colored overlay
 var overlay = document.getElementById('scene');
 overlay.style.backgroundColor = 'rgba(84, 0, 31, 0.43)'; // Set the desired color and opacity
@@ -444,7 +444,7 @@ function animate() {
   world.step(timeStep);
 
   moveobject();
-  
+
   // cannonDebugger.update();
   updatePositionIfBelow(boxBody,startPosition);
 
