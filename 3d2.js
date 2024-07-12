@@ -85,7 +85,7 @@ loader.setDRACOLoader(dLoader);
 
 let object;
 loader.load(
-  'art/wizard.gltf',
+  'public/art/wizard.gltf',
   (gltf) => {
     object = gltf.scene;
     let scale = 0.3;
@@ -107,7 +107,7 @@ loader.load(
 
 let secobject;
 loader.load(
-  'art/WebRoom2.gltf',
+  'public/art/WebRoom2.gltf',
   (gltf) => {
     secobject = gltf.scene;
     let scale = 1.5;
