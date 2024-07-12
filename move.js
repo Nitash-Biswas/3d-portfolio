@@ -88,7 +88,7 @@ loader.load(
     let scale = 0.3;
     object.scale.set(scale, scale, scale);
 
-    
+
 
     scene.add(object);
     object.rotation.y = Math.PI/2;
@@ -110,7 +110,7 @@ loader.load(
     let scale = 1.5;
     secobject.scale.set(scale, scale, scale);
 
-    
+
 
     scene.add(secobject);
     secobject.position.set(3, 0,-1);
@@ -187,7 +187,7 @@ function generateBodies() {
 
   const bodyData = [
     //Livingroom
-    
+
     //1.Sofa
     { shape: new CANNON.Box(new CANNON.Vec3(8, 6, 6)), position: new CANNON.Vec3(16, 0, 2.5) },
     //2.Chair
@@ -196,7 +196,7 @@ function generateBodies() {
     { shape: new CANNON.Box(new CANNON.Vec3(17, 6, 2.3)), position: new CANNON.Vec3(14, 0, -13.5)},
     //4.Computer-Bedroom Wall
     { shape: new CANNON.Box(new CANNON.Vec3(1.2, 6, 11)), position: new CANNON.Vec3(-11, 0, -12) },
-    
+
 
     //Artroom
 
@@ -224,23 +224,23 @@ function generateBodies() {
     { shape: new CANNON.Box(new CANNON.Vec3(1.5, 6, 1.5)), position: new CANNON.Vec3(-24.6, 0, -31.2) },
     //14.Door
     { shape: new CANNON.Box(new CANNON.Vec3(2.4, 6, 2.4)), position: new CANNON.Vec3(-14, 0, -32)},
-    
+
     //Study Room
-    
+
     //15.Table
     { shape: new CANNON.Box(new CANNON.Vec3(10.5, 6, 2.8)), position: new CANNON.Vec3(0, 0, -31)},
     //16.Chair
     { shape: new CANNON.Box(new CANNON.Vec3(2, 6, 2)), position: new CANNON.Vec3(5.4, 0, -28)},
     //17.Wall Shelf
     { shape: new CANNON.Box(new CANNON.Vec3(2, 6, 1)), position: new CANNON.Vec3(13, 0, -33)},
-    
+
     //18.Cabinet
     { shape: new CANNON.Box(new CANNON.Vec3(9.4, 6, 3.9)), position: new CANNON.Vec3(11, 0, 40.5) },
     { shape: new CANNON.Box(new CANNON.Vec3(2.5, 6, 10.4)), position: new CANNON.Vec3(5, 0, 31.5) },
     { shape: new CANNON.Box(new CANNON.Vec3(4.5, 6, 2.4)), position: new CANNON.Vec3(26, 0, 40.5) },
-    
+
     //Walls
-    
+
     //19.Bedroom-ArtRoom
     { shape: new CANNON.Box(new CANNON.Vec3(1, 6, 28.5)), position: new CANNON.Vec3(-41, 1.5, -7) },
     //20.Bedroom-Study Room
@@ -279,7 +279,7 @@ function generateBodies() {
     { shape: new CANNON.Box(new CANNON.Vec3(11.5, 4, 0.5)), position: new CANNON.Vec3(-6, 1.5, 44) },
     { shape: new CANNON.Box(new CANNON.Vec3(9.5, 4, 0.5)), position: new CANNON.Vec3(-35.4, 1.5, 44) },
     { shape: new CANNON.Box(new CANNON.Vec3(0.5, 4, 9.5)), position: new CANNON.Vec3(-45.4, 1.5, 34) },
-    
+
 
   ];
 
@@ -299,7 +299,7 @@ function generateBodies() {
 }
 
 generateBodies();
-  
+
 
 
 
@@ -334,44 +334,44 @@ document.addEventListener('keyup', (event) => {
 
 // function levitateObject() {
 //   if(object){
-    
-//       const oscillationSpeed = 0.005; 
-//       const amplitude = 0.3; 
+
+//       const oscillationSpeed = 0.005;
+//       const amplitude = 0.3;
 
 //     boxBody.position.y = Math.sin(Date.now() * oscillationSpeed) * amplitude;
-      
+
 //     }
 //   }
 function moveobject() {
-const section = document.getElementById('contact'); 
+const section = document.getElementById('contact');
   const rect = section.getBoundingClientRect();
   const isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
 
   if (!isVisible) {
-    
-  
+
+
   if (object) {
     const speed = 0.15;
 
     if (keyboard['KeyW']) {
       boxBody.position.x -= speed;
-      object.rotation.y = 0; 
+      object.rotation.y = 0;
     }
 
     if (keyboard['KeyS']) {
       boxBody.position.x += speed;
-      object.rotation.y = Math.PI; 
+      object.rotation.y = Math.PI;
     }
 
     if (keyboard['KeyA']) {
       boxBody.position.z += speed;
-      object.rotation.y = Math.PI / 2; 
-      
+      object.rotation.y = Math.PI / 2;
+
     }
 
     if (keyboard['KeyD']) {
-      boxBody.position.z -= speed; 
-      object.rotation.y = -Math.PI / 2; 
+      boxBody.position.z -= speed;
+      object.rotation.y = -Math.PI / 2;
     }
 
     // Update target camera position relative to the ball
@@ -400,36 +400,36 @@ const section = document.getElementById('contact');
     }
   }
 
-  
+
 
 // Cannon Debugger
 const cannonDebugger = new CannonDebugger(scene, world);
-  
+
 
 
 
 // Create a colored overlay
 var overlay = document.getElementById('scene');
-overlay.style.backgroundColor = 'rgba(84, 0, 31, 0.4)'; // Set the desired color and opacity
+overlay.style.backgroundColor = 'rgba(84, 0, 31, 0.9)'; // Set the desired color and opacity
 
 function animate() {
   requestAnimationFrame(animate);
-  
+
   world.step(timeStep);
 
   // Function to handle scrolling event
   moveobject();
-  
 
-  
-  
+
+
+
   // levitateObject();
-  // cannonDebugger.update();
+  cannonDebugger.update();
   updatePositionIfBelow(boxBody,startPosition);
 
   // Render the scene
-  // renderer.render(scene, camera);
-  composer.render();
+  renderer.render(scene, camera);
+  // composer.render();
 }
 animate();
 

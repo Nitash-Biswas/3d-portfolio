@@ -19,6 +19,9 @@
 #cv:hover,#submit:hover{
   color: var(--light);
 }
+.cv:hover{
+  color: var(--light);
+}
 
 body {
   color: var(--light);
@@ -74,7 +77,7 @@ canvas {
   justify-content: center;
   background-color:#161616;
   transition: opacity 0.75s,visibility 0.75s;
-  
+
 }
 
 .loader::after{
@@ -171,8 +174,8 @@ header {
   display: inline-block;
   padding: 10px;
   cursor: pointer;
-  
-    
+
+
 }
 
 .navlist li:not(:last-child) {
@@ -217,20 +220,25 @@ header {
   display:grid;
   grid-template-columns: repeat(2,1fr);
   align-items: center;
-  
+
 }
 .hero-img{
-  margin: 3px; 
+  margin: 3px;
 }
 .hero-img img{
   width: 100%;
-  
+
 }
 .hero-text{
   visibility: hidden;
   font-size: 28px;
 }
 .hero-text button{
+
+
+}
+
+.cv{
   display: inline-block;
   color: var(--color2);
   background-color: #09090900;
@@ -242,12 +250,11 @@ header {
   border-radius: 30px;
   margin: 8px 0;
   transition: all .15s ease;
-
 }
 
-.hero-text button:hover {
-  color: white;
-  background: var(--color2);
+.cv:hover {
+  color: var(--color1);
+  background-color: var(--color2);
 }
 
 
@@ -336,7 +343,7 @@ h8{
   z-index: 3;
 }
 .music:hover{
-  background-color: var(--color2); 
+  background-color: var(--color2);
   color: var(--light);
 }
 
@@ -349,7 +356,7 @@ h8{
   transform: translateY(-50%);
   z-index: 1;
   visibility: hidden;
-    
+
 }
 
 .vertical-navbar i{
@@ -359,7 +366,7 @@ h8{
   align-items: center;
   color: var(--color2);
   transition: all .50s ease;
- 
+
 }
 .vertical-navbar i:hover{
   color: var(--light);
@@ -447,8 +454,8 @@ blockquote p {
 .projects-wrapper {
   display: flex; /* Create a flex container */
   flex-wrap: nowrap; /* Prevent projects from wrapping to new lines */
-  margin-top: 50px; 
-  flex-direction: column; 
+  margin-top: 50px;
+  flex-direction: column;
   scrollbar-width: none;
 }
 
@@ -460,12 +467,12 @@ blockquote p {
   position: sticky; /* Make the heading elements sticky */
   top: 0; /* Stick them to the top of the #projects section */
   padding: 10px;
-  z-index: 1; 
+  z-index: 1;
 }
 
 .projects-container {
   display: flex; /* Create a flex container */
-  flex-wrap: nowrap; 
+  flex-wrap: nowrap;
   overflow-x: auto;
   padding-bottom: 20px;
   scroll-behavior: smooth;
@@ -623,7 +630,7 @@ textarea::placeholder {
   }
 }
 @media(max-width: 990px){
-  
+
   .loader-content img{
     width: 350px;
     padding: 10px 0px;
@@ -636,8 +643,8 @@ textarea::placeholder {
     width: 250px;
     height: 250px;
   }
-  
-  
+
+
   .hero{
     grid-template-columns: 1fr; /*brings the image down */
 
@@ -649,10 +656,10 @@ textarea::placeholder {
     font-size: 100%;
   }
   .hero-img{
-    box-sizing: border-box;   
+    box-sizing: border-box;
   }
   .hero-img img{
-    width: 100%;   
+    width: 100%;
   }
   .hero-text h1{
     font-size: 250%
@@ -669,7 +676,7 @@ textarea::placeholder {
   #menu-icon{
     display: block;
   }
-  
+
   .navlist{
     position: absolute;
     top: 100%;
@@ -683,7 +690,7 @@ textarea::placeholder {
     transition: all .55s ease;
     z-index: 2000;
     font-weight: 300;
-    
+
   }
   #header .navlist a{
     display: block;
@@ -699,7 +706,7 @@ textarea::placeholder {
     bottom: 15px;
   }
   .navlist.open{
-    right: 0; 
+    right: 0;
     font-size: 100%;
   }
   .logo {
@@ -707,8 +714,8 @@ textarea::placeholder {
     font-size: 200%;
     color: var(--color2);
   }
-  
-  
+
+
   .circle {
     position: absolute;
     top: 50%;
@@ -740,7 +747,7 @@ textarea::placeholder {
     font-size: 20px;
 
   }
-  
+
 
   p{
     grid-template-columns: repeat(1, 1fr);
